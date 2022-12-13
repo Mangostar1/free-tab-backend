@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const dotenv = require('dotenv')
 dotenv.config();
 const mysql = require('mysql');
@@ -11,19 +12,14 @@ const connection = mysql.createConnection({
     database : process.env.DB_NAME
 });
 
-connection.connect();
+connection.connect();//<-- Conecto a mysql
 
 router.get('/', (req, res) => {
     res.send('hola desde api home');
 })
 
-router.get('/api/animals', (req, res) => {
-
-    connection.query('SELECT * FROM animales', function (error, results, fields) {
-        if (error) throw error;
-        res.json(results);//<-- Responde un json con la tabla user de mysql
-    });
-
+router.get('/api', (req, res) => {
+    res.send('hola desde api, aca muestro animales y usuarios');
 })
 
 router.get('/api/user', (req, res) => {
