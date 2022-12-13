@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/api', (req, res) => {
-    res.send('hola desde api, aca muestro animales y usuarios');
+    res.send('hola desde api, aca muestros usuarios');
 })
 
 router.get('/api/user', (req, res) => {
