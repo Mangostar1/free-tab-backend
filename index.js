@@ -1,12 +1,17 @@
 const express = require('express');
 const app = express();
 
-const dotenv = require('dotenv')
+const cors = require('cors');
+const dotenv = require('dotenv');
 dotenv.config();
 const colors = require('colors');
 
+app.use(cors({ origin: true, credentials: true  }));
+
 const PORT = process.env.PORT || 3000;
 
+app.use(express.urlencoded({extended: false}))
+app.use(express.json());
 app.use('/', require('./routes/apiRoutes'));
 
 app.use((req, res, next) => {

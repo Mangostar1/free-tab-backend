@@ -13,11 +13,11 @@ const credentials = {
 }
 
 router.get('/', (req, res) => {
-    res.send('hola desde api home');
+    res.send(`Hola a mi api, las rutas que esta tiene son: <a href="/api/user">users</a>`);
 })
 
 router.get('/api', (req, res) => {
-    res.send('hola desde api, aca muestros usuarios');
+    res.send('Las rutas que entrega esta api son:');
 })
 
 router.get('/api/user', (req, res) => {
@@ -32,8 +32,24 @@ router.get('/api/user', (req, res) => {
 })
 
 router.post('/api/login', (req, res) => {
+    let connection = mysql.createConnection(credentials);
+
     const {username, password} = req.body;
     const values = [username, password];
+
+    connection.query('SELECT * FROM user WHERE username = ? AND password = ?', values , (err, result) => {
+        if (err) {
+            res.status(500).send(err)
+        } else {
+            if (result.length > 0) {
+                res.status(200).send(result[0]);
+            } else {
+                res.status(400).send('El usuario no existe');
+            }
+        }
+    });
+
+    connection.end();
 })
 
 
