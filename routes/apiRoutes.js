@@ -13,11 +13,11 @@ const credentials = {
 }
 
 router.get('/', (req, res) => {
-    res.send(`Hola a mi api, las rutas que esta tiene son: <a href="/api/user">users</a>`);
+    res.send(`Hola a mi api, las rutas que esta tiene son: <a href="/api">APIs</a>`);
 })
 
 router.get('/api', (req, res) => {
-    res.send('Las rutas que entrega esta api son:');
+    res.send('Las rutas que entrega esta api son: <a href="/api/user">Users</a>');
 })
 
 router.get('/api/user', (req, res) => {
@@ -33,18 +33,21 @@ router.get('/api/user', (req, res) => {
 
 router.post('/api/login', (req, res) => {
     let connection = mysql.createConnection(credentials);
-
+    
+    //Se desestructuran los valores username y password del cuerpo de la peticion post enviada desde el front-end.
     const {username, password} = req.body;
+
+    //Se asignan las variables username y password a value en forma de array para usarlos luegos en la consulta SQL.
     const values = [username, password];
 
     connection.query('SELECT * FROM user WHERE username = ? AND password = ?', values , (err, result) => {
         if (err) {
-            res.status(500).send(err)
+            res.status(500).send(err)//<-- Si ocurre un error durante la consulta, devuelve "Internal Server Error".
         } else {
             if (result.length > 0) {
-                res.status(200).send(result[0]);
+                res.status(200).send(result[0]);//<-- Si se encuentra el usuario y contraseña en la base de datos devuelve un codigo de estado 200 (ok).
             } else {
-                res.status(400).send('El usuario no existe');
+                res.status(400).send('El usuario no existe');//<-- Si no se encuentra el usuario o la contraseña, se devuelve un codigo de estado 400 (Bad Request).
             }
         }
     });
