@@ -15,7 +15,7 @@ app.use(express.json());
 app.use('/', require('./routes/apiRoutes'));
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(__dirname + './public/404.html');
+    res.status(404).sendFile(__dirname + '/public/404.html');
 })
 
 app.listen(PORT, () => {
