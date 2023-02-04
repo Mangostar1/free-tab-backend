@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json());
-app.use('/', require('./routes/apiGuide'));//<-- guide
+app.use('/', require('./routes/apiGuideg'));//<-- guide
 app.use('/', require('./routes/login'));//<-- login
 app.use('/', require('./routes/users'));//<-- users
 app.use('/', require('./routes/tabsDBQuery'));//<-- tabs
