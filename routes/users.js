@@ -15,9 +15,9 @@ const credentials = {
 router.get('/user', (req, res) => {
     let connection = mysql.createConnection(credentials);
 
-    connection.query('SELECT * FROM user', function (error, results, fields) {
+    connection.query('SELECT username FROM user', function (error, results, fields) {
         if (error) throw error;
-        res.json(results);//<-- Responde un json con la tabla user de mysql
+        res.json(results);
     });
 
     connection.end();
