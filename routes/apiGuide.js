@@ -11,7 +11,9 @@ router.get('/', (req, res) => {
 })
 
 router.get('/api', (req, res) => {
-    res.send('Las rutas que entrega esta api son:<li><a href="/user">Users</a></li><li><a href="/tab">Tabs</a></li>');
+    res.send(`Las rutas que entrega esta api son:
+        <li><a href="/user">Users</a></li>
+        <li><a href="/tab">Tabs</a></li>`);
 })
 
 module.exports = router;
