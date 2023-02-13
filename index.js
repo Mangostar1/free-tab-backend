@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`.bgGreen);
 
-    if (PORT === 3000) {//<-- For local
+    if (PORT === 3000 || PORT === 5001) {//<-- For local
         console.log('http://127.0.0.1:3000/'.red)
     }
 })
