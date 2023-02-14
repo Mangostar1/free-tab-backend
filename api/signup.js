@@ -15,7 +15,11 @@ const credentials = {
 router.post('/api/signup', (req, res) => {
     let connection = mysql.createConnection(credentials);
     
-    //Some query
+    const {username, email, password} = req.body;
+
+    const values = [username, email, password];
+
+    //some query
 
     connection.end();
 })
