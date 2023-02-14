@@ -15,8 +15,9 @@ app.use(express.json());
 app.use('/', require('./routes/apiGuide'));//<-- guide
 app.use('/', require('./api/login'));//<-- login
 app.use('/', require('./api/signup'));//<-- signup
-app.use('/', require('./routes/users'));//<-- users
-app.use('/', require('./routes/tabsDBQuery'));//<-- tabs
+app.use('/', require('./api/addNewTab'));//<-- Add New Tab
+app.use('/', require('./routes/users'));//<-- Send Users In DB
+app.use('/', require('./routes/showTabs'));//<-- Send Tabs In DB
 
 app.use((req, res, next) => {
     res.status(404).sendFile(__dirname + '/public/404.html');

@@ -12,20 +12,10 @@ const credentials = {
     database : process.env.DB_NAME
 }
 
-router.post('/api/signup', (req, res) => {
+router.post('api/new-tab', (res, req) => {
     let connection = mysql.createConnection(credentials);
-    
-    const {username, email, password} = req.body;
 
-    const values = [username, email, password];
-
-    connection.query(`insert into user (username, email, password) value ('?', '?', '?')`, values, (err, result) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            
-        }
-    })
+    connection.query();
 
     connection.end();
 })
