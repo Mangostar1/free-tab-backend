@@ -5,14 +5,17 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 //*firebase
-import { app } from '../config/firebaseConfig'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-const auth = getAuth(app);
+const { firebaseConfig } = require('../config/firebaseConfig.js');
+const { initializeApp } = require("firebase/app");
+const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 router.post('/api/signup', (req, res) => {
     
     const {username, email, password} = req.body;//?<-- Es posible que el parametro {username} no sea necesario para registrar a los nuevos usuarios
+
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
         // Signed in
