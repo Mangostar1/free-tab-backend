@@ -3,31 +3,28 @@ const router = express.Router();
 
 const dotenv = require('dotenv')
 dotenv.config();
-const mysql = require('mysql');
 
-const credentials = {
-    host     : process.env.DB_HOST,
-    user     : process.env.DB_USER,
-    password : process.env.DB_PASSWORD,
-    database : process.env.DB_NAME
-}
+//*firebase
+import { app } from '../config/firebaseConfig'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+const auth = getAuth(app);
+
 
 router.post('/api/signup', (req, res) => {
-    let connection = mysql.createConnection(credentials);
     
-    const {username, email, password} = req.body;
-
-    const values = [username, email, password];
-
-    connection.query(`insert into user (username, email, password) value ('?', '?', '?')`, values, (err, result) => {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            
-        }
-    })
-
-    connection.end();
+    const {username, email, password} = req.body;//?<-- Es posible que el parametro {username} no sea necesario para registrar a los nuevos usuarios
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+        console.log(user);//!<-- test
+        })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+    });
 })
 
 module.exports = router;
