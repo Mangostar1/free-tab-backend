@@ -5,29 +5,41 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 //*firebase
-const { firebaseConfig } = require('../config/firebaseConfig.js');
 const { initializeApp } = require("firebase/app");
 const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
+
+const firebaseConfig = {
+
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId
+
+};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 router.post('/api/signup', (req, res) => {
     
-    const {username, email, password} = req.body;//?<-- Es posible que el parametro {username} no sea necesario para registrar a los nuevos usuarios
+    const {email, password} = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Se deben proporcionar ambos campos.' });
+    }
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-        console.log(user);//!<-- test
+            res.status(200).json({ message: 'Usuario creado exitosamente.' });
+            const user = userCredential.user;
+            console.log(user);
         })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-    });
+        .catch((error) => {
+            res.status(500).json({ message: 'Ha ocurrido un error al crear el usuario.' });
+        });
 })
+
 
 module.exports = router;

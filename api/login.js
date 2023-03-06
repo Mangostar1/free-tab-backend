@@ -4,10 +4,41 @@ const router = express.Router();
 const dotenv = require('dotenv')
 dotenv.config();
 
+//*firebase
+const { initializeApp } = require("firebase/app");
+const { getAuth, signInWithEmailAndPassword  } = require("firebase/auth");
+
+const firebaseConfig = {
+
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId
+
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
 router.post('/api/login', (req, res) => {
     
-    //Se desestructuran los valores username y password del cuerpo de la peticion post enviada desde el front-end.
-    const {username, password} = req.body;
+    const {email, password} = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Se deben proporcionar ambos campos.' });
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        res.status(200).json({ message: 'Usuario a ingresado exitosamente.' });
+        const user = userCredential.user;
+        console.log(user);
+    })
+    .catch((error) => {
+        res.status(500).json({ message: 'Ha ocurrido un error al iniciar sesion.' });
+    });
 })
 
 
