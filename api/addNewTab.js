@@ -6,7 +6,9 @@ dotenv.config();
 
 
 router.post('api/new-tab', (res, req) => {
-    //code
+    
+    const {username, instrument, tab} = req.body;
+    
 })
 
 module.exports = router;
