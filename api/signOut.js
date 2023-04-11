@@ -6,7 +6,7 @@ dotenv.config();
 
 //*firebase
 const { initializeApp } = require("firebase/app");
-const { getAuth, signInWithEmailAndPassword  } = require("firebase/auth");
+const { getAuth } = require("firebase/auth");
 
 const firebaseConfig = {
 
@@ -22,9 +22,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-router.post('/api/logout', (req, res) => {
-    
-    //remove tocken
+router.get('/api/logout', (req, res) => {
+    auth.signOut()
+    .then(() => {
+        res.status(200).send("Sesión cerrada");
+    })
+    .catch((error) => {
+        res.status(500).send("Error al cerrar sesión", error);
+    })
 
 })
 
