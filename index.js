@@ -15,8 +15,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({extended: false}))
 app.use(express.json());
 app.use('/', require('./routes/apiGuide'));//<-- guide
-app.use('/', require('./api/login'));//<-- login
 app.use('/', require('./api/signup'));//<-- signup
+app.use('/', require('./api/login'));//<-- login
+app.use('/', require('./api/signOut'));//<-- logout
 app.use('/', require('./api/addNewTab'));//<-- Add New Tab
 app.use('/', require('./routes/users'));//<-- Send Users In DB
 app.use('/', require('./routes/showTabs'));//<-- Send Tabs In DB
