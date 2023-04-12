@@ -6,7 +6,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 const colors = require('colors');
 
-app.use(cors({ origin: true, credentials: true  }));
+//<-- usar le valor true para desarollo en local
+//<-- usar le valor 'https://free-tabs.netlify.app/' para desarollo en produccion
+app.use(cors({ origin: 'https://free-tabs.netlify.app/', credentials: true  }));
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,9 +26,7 @@ app.use((req, res, next) => {
 })
 
 app.listen(PORT, () => {
+
     console.log(`Servidor corriendo en el puerto ${PORT}`.bgGreen);
 
-    if (PORT === 3000 || PORT === 5001) {//<-- For local
-        console.log('http://127.0.0.1:3000/'.red)
-    }
 })
