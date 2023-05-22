@@ -1,17 +1,19 @@
 const express = require("express");
 const app = express();
 
-const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
+const cors = require("cors");
+const loggerTime = require("./middleware/logger");
 const colors = require("colors");
-
-//<-- usar le valor true para desarollo en local
-//<-- usar le valor 'https://free-tabs.netlify.app/' para desarollo en produccion
-app.use(cors({ origin: "https://free-tabs.netlify.app/", credentials: true }));
 
 const PORT = process.env.PORT || 3000;
 
+app.use(loggerTime);
+
+//<-- usar le valor true para desarollo en local
+//<-- usar le valor 'https://free-tabs.netlify.app/' para desarollo en produccion
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -26,6 +28,7 @@ app.use("/", require("./api/login")); //<-- login
 app.use("/", require("./api/signOut")); //<-- logout
 app.use("/", require("./api/addNewTab")); //<-- Add New Tab
 
+//404 Error
 app.use((req, res, next) => {
   res.status(404).sendFile(__dirname + "/public/404.html");
 });

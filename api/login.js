@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -21,9 +22,26 @@ router.post("/api/login", (req, res) => {
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      res.status(200).json({ message: "Usuario a ingresado exitosamente." });
       const user = userCredential.user;
-      console.log(user);
+
+      // Genera el JWT
+      const payload = { email: user.email };
+      const secretKey = process.env.JWT_SECRET_KEY; // Usa tu clave secreta de JWT almacenada en las variables de entorno
+      const options = { expiresIn: "1h" }; // Opciones del token, como el tiempo de expiración
+
+      const token = jwt.sign(payload, secretKey, options);
+
+      // Configura la cookie
+      res.cookie("jwtToken", token, {
+        secure: true,
+        httpOnly: true,
+        sameSite: "None",
+      });
+
+      res
+        .status(200)
+        .json({ token, message: "Usuario a ingresado exitosamente." });
+      //console.log(user, token);
     })
     .catch((error) => {
       res
