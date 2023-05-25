@@ -6,7 +6,11 @@ dotenv.config();
 
 //*firebase
 const app = require("../config/firebaseConfig.js");
-const { getAuth, createUserWithEmailAndPassword } = require("firebase/auth");
+const {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} = require("firebase/auth");
 
 const auth = getAuth(app);
 
@@ -21,8 +25,21 @@ router.post("/api/signup", (req, res) => {
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      res.status(200).json({ message: "Usuario creado exitosamente." });
       const user = userCredential.user;
+
+      sendEmailVerification(auth.currentUser)
+        .then(() => {
+          res.status(200).json({
+            message:
+              "Usuario creado exitosamente. Se ha enviado un correo de verificación.",
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            message:
+              "Ha ocurrido un error al enviar el correo de verificación.",
+          });
+        });
       console.log(user);
     })
     .catch((error) => {

@@ -41,7 +41,6 @@ router.post("/api/login", (req, res) => {
       res
         .status(200)
         .json({ token, message: "Usuario a ingresado exitosamente." });
-      //console.log(user, token);
     })
     .catch((error) => {
       res
