@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
-//*firebase
+//firebase
 const app = require("../config/firebaseConfig.js");
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 

@@ -10,6 +10,7 @@ const {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  onAuthStateChanged,
 } = require("firebase/auth");
 
 const auth = getAuth(app);
@@ -43,9 +44,16 @@ router.post("/api/signup", (req, res) => {
       console.log(user);
     })
     .catch((error) => {
-      res
-        .status(500)
-        .json({ message: "Ha ocurrido un error al crear el usuario." });
+      let errorMessage = "Ha ocurrido un error al crear el usuario.";
+
+      if (error.code === "auth/invalid-email") {
+        errorMessage = "El correo electrónico proporcionado es inválido.";
+      } else if (error.code === "auth/user-not-found") {
+        errorMessage =
+          "El correo electrónico proporcionado no está registrado.";
+      }
+
+      res.status(400).json({ message: errorMessage });
     });
 });
 
