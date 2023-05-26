@@ -10,7 +10,6 @@ const {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  onAuthStateChanged,
 } = require("firebase/auth");
 
 const auth = getAuth(app);
