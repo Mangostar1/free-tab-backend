@@ -18,21 +18,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 /* Routes */
-app.use("/", require("./routes/apiGuide")); //<-- guide
+app.use("/", require("./src/routes/apiGuide")); //<-- guide
 
 //Auth - User Session
-app.use("/", require("./api/signup")); //<-- signup
-app.use("/", require("./api/login")); //<-- login
-app.use("/", require("./api/logout")); //<-- logout
+app.use("/", require("./src/api/signup")); //<-- signup
+app.use("/", require("./src/api/login")); //<-- login
+app.use("/", require("./src/api/logout")); //<-- logout
 
 //API
-app.use("/", require("./api/addNewTab")); //<-- Add New Tab
-app.use("/", require("./routes/showTabs")); //<-- Send Tabs In DB
-app.use("/", require("./routes/users")); //<-- Send Users In DB
+app.use("/", require("./src/api/addNewTab")); //<-- Add New Tab
+app.use("/", require("./src/routes/showTabs")); //<-- Send Tabs In DB
+app.use("/", require("./src/routes/users")); //<-- Send Users In DB
 
 //404 Error
 app.use((req, res, next) => {
-  res.status(404).sendFile(__dirname + "/public/404.html");
+  res.status(404).sendFile(__dirname + "./src/public/404.html");
 });
 
 app.listen(PORT, () => {

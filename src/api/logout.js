@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 //*firebase
-const app = require("../src/config/firebaseConfig.js");
+const app = require("../config/firebaseConfig.js");
 const { getAuth } = require("firebase/auth");
 
 const auth = getAuth(app);
