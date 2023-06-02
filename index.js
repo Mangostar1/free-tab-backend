@@ -4,7 +4,8 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
-const loggerTime = require("./src/middleware/logger");
+const loggerTime = require("./src/middleware/timeLogger");
+const authMiddleware = require("./src/middleware/authMiddleware");
 const colors = require("colors");
 
 const PORT = process.env.PORT || 3000;
@@ -24,6 +25,9 @@ app.use("/", require("./src/routes/apiGuide")); //<-- guide
 app.use("/", require("./src/api/signup")); //<-- signup
 app.use("/", require("./src/api/login")); //<-- login
 app.use("/", require("./src/api/logout")); //<-- logout
+
+// Protege las rutas que requieren autenticación con el middleware deberan estar por debajo de esta linea
+app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas protegidas
 
 //API
 app.use("/", require("./src/api/addNewTab")); //<-- Add New Tab
