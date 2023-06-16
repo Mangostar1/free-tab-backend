@@ -4,6 +4,7 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const loggerTime = require("./src/middleware/timeLogger");
 const authMiddleware = require("./src/middleware/authMiddleware");
 const colors = require("colors");
@@ -14,7 +15,7 @@ app.use(loggerTime);
 
 //<-- usar le valor true para desarollo en local
 //<-- usar le valor 'https://free-tabs.netlify.app/' para desarollo en produccion
-app.use(cors({ origin: "https://free-tabs.netlify.app", credentials: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -22,17 +23,18 @@ app.use(express.json());
 app.use("/", require("./src/routes/apiGuide")); //<-- guide
 
 //Auth - User Session
-app.use("/", require("./src/api/signup")); //<-- signup
-app.use("/", require("./src/api/login")); //<-- login
-app.use("/", require("./src/api/logout")); //<-- logout
+app.use("/", require("./src/api/auth/signup")); //<-- signup
+app.use("/", require("./src/api/auth/login")); //<-- login
+app.use("/", require("./src/api/auth/logout")); //<-- logout
 
 // Protege las rutas que requieren autenticación con el middleware deberan estar por debajo de esta linea
+app.use(cookieParser());
 app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas protegidas
 
 //API
+app.use("/", require("./src/api/users/users")); //<-- get user data in auth firestore
 app.use("/", require("./src/api/addNewTab")); //<-- Add New Tab
 app.use("/", require("./src/routes/showTabs")); //<-- Send Tabs In DB
-app.use("/", require("./src/routes/users")); //<-- Send Users In DB
 
 //404 Error
 app.use((req, res, next) => {

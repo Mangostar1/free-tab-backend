@@ -5,17 +5,18 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 //*firebase
-const app = require("../config/firebaseConfig.js");
+const app = require("../../config/firebaseConfig.js");
 const {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } = require("firebase/auth");
 
 const auth = getAuth(app);
 
 router.post("/api/signup", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, userName } = req.body;
 
   if (!email || !password) {
     return res
@@ -27,6 +28,12 @@ router.post("/api/signup", (req, res) => {
     .then((userCredential) => {
       const user = userCredential.user;
 
+      //Add user name
+      updateProfile(auth.currentUser, {
+        displayName: `${userName}`,
+      });
+
+      //then send verification to user email
       sendEmailVerification(auth.currentUser)
         .then(() => {
           res.status(200).json({
