@@ -15,7 +15,7 @@ app.use(loggerTime);
 
 //<-- usar le valor "http://localhost:3000" para desarollo en local
 //<-- usar le valor 'https://free-tabs.netlify.app' para desarollo en produccion
-app.use(cors({ origin: "https://free-tabs.netlify.app", credentials: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -38,7 +38,7 @@ app.use("/", require("./src/routes/showTabs")); //<-- Send Tabs In DB
 
 //404 Error
 app.use((req, res, next) => {
-  res.status(404).sendFile(__dirname + "./src/public/404.html");
+  res.status(404).json({ message: "Error 404, ruta no encontrada" });
 });
 
 app.listen(PORT, () => {
