@@ -1,21 +1,20 @@
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
-  const token = req.cookies.jwtToken; // Obtén el token de la cookie
+  const authHeader = req.headers.authorization;
 
-  console.log("test token", token);
-
-  if (!token) {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Acceso no autorizado." });
   }
 
+  const token = authHeader.split(" ")[1];
+
   try {
-    const secretKey = process.env.JWT_SECRET_KEY; // Obtén la clave secreta de JWT desde las variables de entorno
-    const decoded = jwt.verify(token, secretKey); // Decodifica el token
+    const secretKey = process.env.JWT_SECRET_KEY;
+    const decoded = jwt.verify(token, secretKey);
 
-    req.user = decoded; // Agrega los datos decodificados al objeto de solicitud (req)
-
-    next(); // Pasa al siguiente middleware o ruta
+    req.user = decoded;
+    next();
   } catch (error) {
     return res.status(401).json({ message: "Token inválido." });
   }
