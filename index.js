@@ -15,7 +15,7 @@ app.use(loggerTime);
 
 //<-- usar le valor "http://localhost:3000" para desarollo en local
 //<-- usar le valor 'https://free-tabs.netlify.app' para desarollo en produccion
-app.use(cors({ origin: "https://free-tabs.netlify.app/*", credentials: true }));
+app.use(cors({ origin: "https://free-tabs.netlify.app", credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
