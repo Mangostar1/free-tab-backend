@@ -32,7 +32,8 @@ app.use(cookieParser());
 app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas protegidas
 
 //API
-app.use("/", require("./src/api/users/users")); //<-- get user data in auth firestore
+app.use("/", require("./src/api/users/user")); //<-- get user data in auth firestore
+app.use("/", require("./src/api/users/user-put")); //<-- to update used data
 app.use("/", require("./src/api/addNewTab")); //<-- Add New Tab
 app.use("/", require("./src/routes/showTabs")); //<-- Send Tabs In DB
 

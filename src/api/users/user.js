@@ -14,10 +14,10 @@ router.get("/user-data", (req, res) => {
   try {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { email, displayName, photoURL } = user; // Obtener el uid y el email del usuario
+        const { email, displayName, photoURL } = user;
         res.json({ email, displayName, photoURL });
       } else {
-        res.status(401).json({ message: "Usuario no autenticado" });
+        res.status(401).json({ message: "Unauthenticated user." });
       }
     });
   } catch (error) {
