@@ -9,7 +9,7 @@ const { getFirestore } = require("firebase/firestore");
 const app = require("../../config/firebaseConfig.js");
 const db = getFirestore(app);
 
-router.post("api/new-tab", async (req, res) => {
+router.post("/api/new-tab", async (req, res) => {
   try {
     const { userName, bandName, songnName, guitar, bass, guitarTab, bassTab } =
       req.body;
