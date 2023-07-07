@@ -6,7 +6,7 @@ dotenv.config();
 
 //firebase
 const { getFirestore } = require("firebase/firestore");
-const app = require("../config/firebaseConfig.js");
+const app = require("../../config/firebaseConfig.js");
 const db = getFirestore(app);
 
 router.post("api/new-tab", async (req, res) => {

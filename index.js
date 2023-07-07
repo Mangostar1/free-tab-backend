@@ -13,9 +13,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(loggerTime);
 
-//<-- usar le valor "http://localhost:3000" para desarollo en local
-//<-- usar le valor 'https://free-tabs.netlify.app' para desarollo en produccion
-app.use(cors({ origin: "https://free-tabs.netlify.app", credentials: true }));
+const corsUrl = {
+  local: "http://localhost:3000",
+  production: "https://free-tabs.netlify.app",
+};
+
+app.use(cors({ origin: corsUrl.production, credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -34,8 +37,9 @@ app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas 
 //API
 app.use("/", require("./src/api/users/user")); //<-- get user data in auth firestore
 app.use("/", require("./src/api/users/user-put")); //<-- to update used data
-app.use("/", require("./src/api/addNewTab")); //<-- Add New Tab
-app.use("/", require("./src/routes/showTabs")); //<-- Send Tabs In DB
+app.use("/", require("./src/api/tabs/user_tabs_post")); //<-- Add New Tab
+app.use("/", require("./src/api/tabs/user_tabs_get")); //<-- get Tabs on DB
+app.use("/", require("./src/api/tabs/user_tabs_put")); //<-- update a Tabs on DB
 
 //404 Error
 app.use((req, res, next) => {

@@ -9,7 +9,7 @@ const { getAuth, onAuthStateChanged, updateProfile } = require("firebase/auth");
 
 const auth = getAuth(app);
 
-// Ruta protegida para obtener los datos del usuario
+// Ruta protegida para cambiar los datos del usuario
 router.put("/user-data-update", (req, res) => {
   try {
     const { userName, userImage } = req.body;
