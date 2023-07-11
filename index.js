@@ -40,6 +40,7 @@ app.use("/", require("./src/api/users/user-put")); //<-- to update used data
 app.use("/", require("./src/api/tabs/user_tabs_post")); //<-- Add New Tab
 app.use("/", require("./src/api/tabs/user_tabs_get")); //<-- get Tabs on DB
 app.use("/", require("./src/api/tabs/user_tabs_put")); //<-- update a Tabs on DB
+app.use("/", require("./src/api/tabs/user_tabs_delete")); //<-- delete a Tabs on DB
 
 //404 Error
 app.use((req, res, next) => {
