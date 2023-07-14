@@ -4,7 +4,7 @@ const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 
-router.get("/api/user-tab-delete", (req, res) => {
+router.delete("/api/user-tab-delete", (req, res) => {
   res.send("Aca se veran las tabs creadas");
 });
 

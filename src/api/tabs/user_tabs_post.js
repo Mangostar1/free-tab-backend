@@ -28,6 +28,7 @@ router.post("/api/new-tab", async (req, res) => {
     });
   } catch (e) {
     console.log("Error adding document: ", e);
+    res.status(400).json({ message: e });
   }
 });
 
