@@ -50,6 +50,7 @@ router.post("/api/login", (req, res) => {
       }
     })
     .catch((error) => {
+      console.log(error);
       res
         .status(500)
         .json({ message: "Ha ocurrido un error al iniciar sesión." });
