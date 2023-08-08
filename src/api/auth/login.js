@@ -20,6 +20,8 @@ router.post("/api/login", (req, res) => {
       .json({ message: "Se deben proporcionar ambos campos." });
   }
 
+  console.log(email);
+
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
