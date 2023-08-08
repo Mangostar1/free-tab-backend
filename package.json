@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Servidor web de la pagina free-tabs. Este proyecto sirve la api, auth y base de datos.",
   "main": "index.js",
+  "engines": {
+    "node": "18.17.0"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
