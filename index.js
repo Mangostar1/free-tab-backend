@@ -15,7 +15,7 @@ app.use(loggerTime);
 
 const corsUrl = {
   local: "http://localhost:3000",
-  production: "https://free-tabs.netlify.app",
+  production: "https://free-tab-backend.onrender.com/",
 };
 
 app.use(cors({ origin: corsUrl.production, credentials: true }));
