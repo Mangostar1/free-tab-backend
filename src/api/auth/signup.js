@@ -4,16 +4,19 @@ const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 
+//*Models
+const User = require('../../models/Users.js');
+
 //*firebase
-const app = require("../../config/firebaseConfig.js");
+/* const app = require("../../config/firebaseConfig.js");
 const {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   updateProfile,
-} = require("firebase/auth");
+} = require("firebase/auth"); */
 
-const auth = getAuth(app);
+//const auth = getAuth(app);
 
 router.post("/api/signup", (req, res) => {
   const { email, password, userName } = req.body;
@@ -24,7 +27,16 @@ router.post("/api/signup", (req, res) => {
       .json({ message: "Se deben proporcionar ambos campos." });
   }
 
-  createUserWithEmailAndPassword(auth, email, password)
+  User.createUser(userName, email, password, (err, result) => {
+    if (err) {
+      console.error('Error al crear usuario:', err);
+      res.status(500).json({ message: 'Error en el servidor' });
+    } else {
+      res.json({ message: 'Usuario creado con éxito' });
+    }
+  });
+
+  /* createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
 
@@ -60,7 +72,7 @@ router.post("/api/signup", (req, res) => {
       }
 
       res.status(400).json({ message: errorMessage });
-    });
+    }); */
 });
 
 module.exports = router;
