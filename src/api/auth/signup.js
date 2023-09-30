@@ -12,7 +12,7 @@ const saltRounds = process.env.SALT_ROUNDS;
 
 router.post("/api/signup", (req, res) => {
   try {
-   // const salt = bcrypt.genSalt(saltRounds);
+    const salt = bcrypt.genSalt(saltRounds);
     const { email, password, userName } = req.body;
 
     if (!email || !password) {
@@ -21,9 +21,9 @@ router.post("/api/signup", (req, res) => {
         .json({ message: "Se deben proporcionar ambos campos." });
     }
 
-    //const contraseñaEncriptada = bcrypt.hash(password, salt);
+    const contraseñaEncriptada = bcrypt.hash(password, salt);
 
-    User.createUser(userName, email, password, (err, result) => {
+    User.createUser(userName, email, contraseñaEncriptada, (err, result) => {
       if (err) {
         console.error('Error al crear usuario:', err);
         res.status(500).json({ message: 'Error en el servidor' });
