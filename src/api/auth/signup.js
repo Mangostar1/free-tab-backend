@@ -3,76 +3,41 @@ const router = express.Router();
 
 const dotenv = require("dotenv");
 dotenv.config();
+const bcrypt = require('bcrypt');
 
 //*Models
 const User = require('../../models/Users.js');
 
-//*firebase
-/* const app = require("../../config/firebaseConfig.js");
-const {
-  getAuth,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  updateProfile,
-} = require("firebase/auth"); */
-
-//const auth = getAuth(app);
+const saltRounds = process.env.SALT_ROUNDS;
 
 router.post("/api/signup", (req, res) => {
-  const { email, password, userName } = req.body;
+  try {
+    const salt = bcrypt.genSalt(saltRounds);
+    const { email, password, userName } = req.body;
 
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Se deben proporcionar ambos campos." });
-  }
-
-  User.createUser(userName, email, password, (err, result) => {
-    if (err) {
-      console.error('Error al crear usuario:', err);
-      res.status(500).json({ message: 'Error en el servidor' });
-    } else {
-      res.json({ message: 'Usuario creado con éxito' });
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Se deben proporcionar ambos campos." });
     }
-  });
 
-  /* createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
+    const contraseñaEncriptada = bcrypt.hash(password, salt);
 
-      //Add user name
-      updateProfile(auth.currentUser, {
-        displayName: `${userName}`,
-      });
-
-      //then send verification to user email
-      sendEmailVerification(auth.currentUser)
-        .then(() => {
-          res.status(200).json({
-            message:
-              "Usuario creado exitosamente. Se ha enviado un correo de verificación.",
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message:
-              "Ha ocurrido un error al enviar el correo de verificación.",
-          });
-        });
-      console.log(user);
-    })
-    .catch((error) => {
-      let errorMessage = "Ha ocurrido un error al crear el usuario.";
-
-      if (error.code === "auth/invalid-email") {
-        errorMessage = "El correo electrónico proporcionado es inválido.";
-      } else if (error.code === "auth/user-not-found") {
-        errorMessage =
-          "El correo electrónico proporcionado no está registrado.";
+    User.createUser(userName, email, contraseñaEncriptada, (err, result) => {
+      if (err) {
+        console.error('Error al crear usuario:', err);
+        res.status(500).json({ message: 'Error en el servidor' });
+      } else {
+        res.json({ message: 'Usuario creado con éxito' });
       }
-
-      res.status(400).json({ message: errorMessage });
-    }); */
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;
+
+/* 
+!Falta añadir un encriptador de contraseñas para no enviarla en texto plano
+*/
