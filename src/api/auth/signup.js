@@ -10,9 +10,9 @@ const User = require('../../models/Users.js');
 
 const saltRounds = process.env.SALT_ROUNDS;
 
-router.post("/api/signup", (req, res) => {
+router.post("/api/signup", async (req, res) => {
   try {
-    const salt = bcrypt.genSalt(saltRounds);
+    const salt = await bcrypt.genSalt(Number(saltRounds));
     const { email, password, userName } = req.body;
 
     if (!email || !password) {
@@ -21,7 +21,7 @@ router.post("/api/signup", (req, res) => {
         .json({ message: "Se deben proporcionar ambos campos." });
     }
 
-    const contraseñaEncriptada = bcrypt.hash(password, salt);
+    const contraseñaEncriptada = await bcrypt.hash(password, salt);
 
     User.createUser(userName, email, contraseñaEncriptada, (err, result) => {
       if (err) {
@@ -33,8 +33,10 @@ router.post("/api/signup", (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ message: 'Error en el servidor' });
   }
 });
+
 
 module.exports = router;
 
