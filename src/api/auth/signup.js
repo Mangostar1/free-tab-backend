@@ -39,7 +39,3 @@ router.post("/api/signup", async (req, res) => {
 
 
 module.exports = router;
-
-/* 
-!Falta añadir un encriptador de contraseñas para no enviarla en texto plano
-*/
