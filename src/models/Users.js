@@ -14,8 +14,20 @@ class Users {
     Connection.query('SELECT name, last_name, email FROM user WHERE id = ?', [id], callback);
   }
 
-  loginUser(email, password, callback) {
-    Connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password], callback);
+  findUserByEmail(email) {
+    return new Promise((resolve, reject) => {
+      Connection.query('SELECT * FROM user WHERE email = ?', [email], (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (results.length === 0) {
+            resolve(null); // Usuario no encontrado
+          } else {
+            resolve(results[0]); // Devuelve el primer usuario encontrado
+          }
+        }
+      });
+    });
   }
 
   /* updateUser(id, nuevoUsuario, callback) {
