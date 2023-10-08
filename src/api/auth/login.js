@@ -9,6 +9,9 @@ const bcrypt = require('bcrypt');
 //*Models
 const User = require('../../models/Users.js');
 
+//*Util
+const userSession = require('../../session/sessionService.js');
+
 router.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -32,6 +35,9 @@ router.post("/api/login", async (req, res) => {
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
+    
+    //Se establece la id del usuario de forma temporal.
+    userSession.setUserID(user.id);
 
     if (!passwordMatch) {
       return res.status(401).json({ message: "Contraseña incorrecta." });
@@ -40,7 +46,7 @@ router.post("/api/login", async (req, res) => {
     const payload = { email: email };
     const secretKey = process.env.JWT_SECRET_KEY;
     const options = { expiresIn: "1h" };
-
+    
     const token = jwt.sign(payload, secretKey, options);
 
     // Configura la cookie

@@ -10,8 +10,20 @@ class Users {
     Connection.query('INSERT INTO user (name, email, password) VALUES (?, ?, ?)', [name, email, password], callback);
   }
 
-  getUserById(id, callback) {
-    Connection.query('SELECT name, last_name, email FROM user WHERE id = ?', [id], callback);
+  getUserById(id) {
+    return new Promise((resolve, reject) => {
+      Connection.query('SELECT * FROM user WHERE id = ?', [id], (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          if (results.length === 0) {
+            resolve(null);
+          } else {
+            resolve(results[0]);
+          }
+        }
+      });
+    });
   }
 
   findUserByEmail(email) {

@@ -2,26 +2,31 @@ const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
-//firebase
-const app = require("../../config/firebaseConfig.js");
-const { getAuth, onAuthStateChanged } = require("firebase/auth");
+//*Models
+const User = require('../../models/Users.js');
 
-const auth = getAuth(app);
+//*Util
+const userSession = require('../../session/sessionService.js');
 
 // Ruta protegida para obtener los datos del usuario
-router.get("/user-data", (req, res) => {
+router.get("/user-data", async (req, res) => {
   try {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { email, displayName, photoURL } = user;
-        res.json({ email, displayName, photoURL });
-      } else {
-        res.status(401).json({ message: "Unauthenticated user." });
-      }
-    });
+    const userId = userSession.getUserID();
+
+    const userData = await User.getUserById(userId);
+    
+    const displayName = userData.name;
+    const email = userData.email;
+    const photoURL = userData.img_profile;
+
+    res.status(200).json({ email, displayName, photoURL });
+
   } catch (error) {
-    res.status(400).json({ message: error });
+    console.error(error);
+    res.status(400).json({ message: "Ha ocurrido un error al obtener los datos del usuario." });
   }
 });
 

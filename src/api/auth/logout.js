@@ -4,22 +4,24 @@ const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 
-//*firebase
-const app = require("../../config/firebaseConfig.js");
-const { getAuth } = require("firebase/auth");
-
-const auth = getAuth(app);
+//*Util
+const userSession = require('../../session/sessionService.js');
 
 router.get("/api/logout", (req, res) => {
-  auth
-    .signOut()
-    .then(() => {
-      res.status(200).json({ success: "Sesión cerrada" });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: "Error al cerrar sesión" });
-      console.log(err);
-    });
+
+  try {
+    const clear = null;
+  
+    userSession.setUserID(clear);
+
+    console.log(userSession.getUserID());
+
+    res.status(200).json({ success: "Sesión cerrada" });
+  } catch (error) {
+    res.status(500).json({ error: "Error al cerrar sesión" });
+    console.log(error);
+  }
+
 });
 
 module.exports = router;
