@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //*Models
-const User = require('../../models/Users.js');
+const User = require("../../models/Users.js");
 
 //*Util
-const userSession = require('../../session/sessionService.js');
+const userSession = require("../../session/sessionService.js");
 
 // Ruta protegida para obtener los datos del usuario
 router.get("/user-data", async (req, res) => {
@@ -17,16 +17,17 @@ router.get("/user-data", async (req, res) => {
     const userId = userSession.getUserID();
 
     const userData = await User.getUserById(userId);
-    
+
     const displayName = userData.name;
     const email = userData.email;
     const photoURL = userData.img_profile;
 
     res.status(200).json({ email, displayName, photoURL });
-
   } catch (error) {
     console.error(error);
-    res.status(400).json({ message: "Ha ocurrido un error al obtener los datos del usuario." });
+    res.status(400).json({
+      message: "Ha ocurrido un error al obtener los datos del usuario.",
+    });
   }
 });
 

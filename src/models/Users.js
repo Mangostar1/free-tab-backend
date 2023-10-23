@@ -42,13 +42,17 @@ class Users {
     });
   }
 
-  /* updateUser(id, nuevoUsuario, callback) {
-    Connection.query('UPDATE user SET ? WHERE id = ?', [nuevoUsuario, id], callback);
-  } */
+  updateUserName(id, name, callback) {
+    Connection.query('UPDATE user SET name = ? WHERE id = ?', [name, id], callback);
+  }
 
-  /* deleteUser() {
-    Connection.query();
-  } */
+  updateUserEmail(id, name, callback) {
+    Connection.query('UPDATE user SET email = ? WHERE id = ?', [name, id], callback);
+  }
+
+  deleteUser(userId, callback) {
+    Connection.query('DELETE FROM user WHERE id = ?', [userId], callback);
+  }
 }
 
 module.exports = new Users();
