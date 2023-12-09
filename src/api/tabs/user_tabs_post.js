@@ -12,11 +12,14 @@ const userSession = require("../../session/sessionService.js");
 
 router.post("/api/new-tab", async (req, res) => {
   try {
-    const { bandName, songName, guitarArticle, bassArticle } = req.body;
+    const { userName, bandName, songName, guitarArticle, bassArticle } =
+      req.body;
+
+    console.log(bandName, songName, guitarArticle, bassArticle);
 
     let postDate = new Date().toLocaleString(); //* Fecha en la que se envia el post
 
-    let secondGuitar = null; //* No se recibe una seguida guitarra por ahora
+    let secondGuitar = "null"; //* No se recibe una seguida guitarra por ahora
 
     Tabs.setTab(
       bandName,

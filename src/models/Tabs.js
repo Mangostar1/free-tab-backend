@@ -57,7 +57,7 @@ class Tabs {
     callback
   ) {
     Connection.query(
-      "INSERT INTO tabs (band_name, song_name, user_id, bass_tab, guitar_tab_1, guitar_tab_2, last_modified) VALUES (?, ?, ?, ?, ? , ? , ?)",
+      "INSERT INTO tabs (band_name, song_name, user_id, bass_tab, guitar_tab_1, guitar_tab_2, last_modified) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [
         bandName,
         songName,
