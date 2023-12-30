@@ -16,7 +16,7 @@ router.post("/api/new-tab", async (req, res) => {
 
     let postDate = new Date().toISOString().slice(0, 19).replace("T", " "); //* Fecha en la que se envía el post
 
-    let secondGuitar = null; //* No se recibe una segunda guitarra por ahora
+    let secondGuitar = null; //* No se recibe una segunda guitarra por ahora | Eventualmente esta funcionalidad estara
 
     let bassArticleId = null;
     let guitarArticleId = null;
@@ -28,9 +28,10 @@ router.post("/api/new-tab", async (req, res) => {
       Tabs.incertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
       bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
     }
-    
+
     if (guitarArticle) {
-      //code
+      Tabs.incertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
+      guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
     }
 
     Tabs.setTab(
