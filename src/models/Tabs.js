@@ -46,29 +46,38 @@ class Tabs {
     });
   }
 
-  setTab(
-    bandName,
-    songName,
-    userId,
-    bassTab,
-    guitarTabOne,
-    guitarTabTwo,
-    lastModified,
-    callback
-  ) {
+  setTab(bandName, songName, userId, bassTabId, guitarTabOneId, guitarTabTwoId, lastModified, callback) {
     Connection.query(
-      "INSERT INTO tabs (band_name, song_name, user_id, bass_tab, guitar_tab_1, guitar_tab_2, last_modified) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [
-        bandName,
-        songName,
-        userId,
-        bassTab,
-        guitarTabOne,
-        guitarTabTwo,
-        lastModified,
-      ],
+      "INSERT INTO tabs (band_name, song_name, user_id, bass_tab_id, guitar_tab_id_1, guitar_tab_id_2, last_modified) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [bandName, songName, userId, bassTabId, guitarTabOneId, guitarTabTwoId, lastModified],
       callback
     );
+  }
+
+  incertBassTab(bassArticle, userId) {
+    return new Promise((resolve, reject) => {
+      Connection.query("INSERT INTO bass_tab (bass_tab_data, user_id) VALUES (?, ?)", [bassArticle, userId], (error, results) => {
+        if (error) {
+          reject(error);
+        }
+      });
+    });
+  }
+
+  getLastBassTabByUserId(userId) {
+    return new Promise((resolve, reject) => {
+      Connection.query("SELECT bass_tab_id, user_id FROM `bass_tab` WHERE user_id = ? ORDER BY `bass_tab`.`bass_tab_id` DESC", [userId], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          if (results.length === 0) {
+            resolve(null);
+          } else {
+            resolve(results[0]);
+          }
+        }
+      })
+    })
   }
 
   /* updateBassTab(userId) {

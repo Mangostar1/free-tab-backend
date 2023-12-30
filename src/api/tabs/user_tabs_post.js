@@ -12,22 +12,34 @@ const userSession = require("../../session/sessionService.js");
 
 router.post("/api/new-tab", async (req, res) => {
   try {
-    const { userName, bandName, songName, guitarArticle, bassArticle } =
-      req.body;
+    const { userName, bandName, songName, guitarArticle, bassArticle } = req.body;
 
-    console.log(bandName, songName, guitarArticle, bassArticle);
+    let postDate = new Date().toISOString().slice(0, 19).replace("T", " "); //* Fecha en la que se envía el post
 
-    let postDate = new Date().toLocaleString(); //* Fecha en la que se envia el post
+    let secondGuitar = null; //* No se recibe una segunda guitarra por ahora
 
-    let secondGuitar = "null"; //* No se recibe una seguida guitarra por ahora
+    let bassArticleId = null;
+    let guitarArticleId = null;
+    let secondGuitarId = null;
+
+    /* middleware */
+    //code
+    if (bassArticle) {
+      Tabs.incertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
+      bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
+    }
+    
+    if (guitarArticle) {
+      //code
+    }
 
     Tabs.setTab(
       bandName,
       songName,
       userSession.getUserID(),
-      bassArticle,
-      guitarArticle,
-      secondGuitar,
+      bassArticleId.bass_tab_id,
+      guitarArticleId,
+      secondGuitarId,
       postDate,
       (err, result) => {
         if (err) {
