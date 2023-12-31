@@ -21,6 +21,11 @@ router.post("/api/signup", async (req, res) => {
         .json({ message: "Se deben proporcionar ambos campos." });
     }
 
+    
+    if (User.findUserByEmail(email)) {
+      res.json({message: 'El email ya se encuentra en uso'});
+    }
+
     const contraseñaEncriptada = await bcrypt.hash(password, salt);
 
     User.createUser(userName, email, contraseñaEncriptada, (err, result) => {

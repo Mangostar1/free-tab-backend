@@ -5,11 +5,11 @@ const Connection = require("../config/Connection.js");
 class Tabs {
   constructor() {}
 
-  async getAllUserTabs(userId) {//TODO<-- Hacer join a las tablas: bass_tab y guitar_tab | Obtener usando las id bass_tab_id y guitar_tab_id
+  async getAllUserTabs(userId) {
     try {
       const results = await new Promise((resolve, reject) => {
         Connection.query(
-          "SELECT band_name, song_name, bass_tab, guitar_tab_1, guitar_tab_2, last_modified FROM tabs WHERE user_id = ?",
+          "SELECT tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modifiedFROM tabs LEFT JOIN  bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN  guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
           [userId],
           (err, results) => {
             if (err) {
@@ -26,10 +26,10 @@ class Tabs {
     }
   }
 
-  getUserTabById(userId, tabId) {//TODO<-- Hacer join a las tablas: bass_tab y guitar_tab | Obtener usando las id bass_tab_id y guitar_tab_id
+  getUserTabById(userId, tabId) {
     return new Promise((resolve, reject) => {
       Connection.query(
-        "SELECT band_name, song_name, bass_tab, guitar_tab_1, guitar_tab_2, last_modified FROM tabs WHERE user_id = ? AND id = ?",
+        "SELECT tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modifiedFROM tabs LEFT JOIN  bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN  guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ? AND tabs.id_tabs = ?",
         [userId, tabId],
         (err, results) => {
           if (err) {
