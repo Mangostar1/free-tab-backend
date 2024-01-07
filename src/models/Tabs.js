@@ -9,7 +9,7 @@ class Tabs {
     try {
       const results = await new Promise((resolve, reject) => {
         Connection.query(
-          "SELECT tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modifiedFROM tabs LEFT JOIN  bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN  guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
+          "SELECT tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs INNER JOIN  bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) INNER JOIN  guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
           [userId],
           (err, results) => {
             if (err) {
