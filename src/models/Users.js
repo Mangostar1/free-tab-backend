@@ -6,8 +6,8 @@ const Connection = require('../config/Connection.js');
 class Users {
   constructor() {}
 
-  createUser(name, email, password, callback) {
-    Connection.query('INSERT INTO user (name, email, password) VALUES (?, ?, ?)', [name, email, password], callback);
+  createUser(name, email, password, dateCreated, callback) {
+    Connection.query('INSERT INTO user (name, email, password, created_at, role) VALUES (?, ?, ?, ?, 2)', [name, email, password, dateCreated], callback);
   }
 
   getUserById(id) {

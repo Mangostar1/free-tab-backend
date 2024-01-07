@@ -28,7 +28,9 @@ router.post("/api/signup", async (req, res) => {
 
     const contraseñaEncriptada = await bcrypt.hash(password, salt);
 
-    User.createUser(userName, email, contraseñaEncriptada, (err, result) => {
+    const dateCreated = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+    User.createUser(userName, email, contraseñaEncriptada, dateCreated, (err, result) => {
       if (err) {
         console.error('Error al crear usuario:', err);
         res.status(500).json({ message: 'Error en el servidor' });
