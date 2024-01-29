@@ -18,29 +18,29 @@ const corsUrl = {
   production: "https://free-tabs.netlify.app",
 };
 
-app.use(cors({ origin: corsUrl.local, credentials: true }));
+app.use(cors({ origin: corsUrl.production, credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 /* Routes */
-app.use("/", require("./src/routes/apiGuide")); //<-- guide
+app.use("/", require("./src/routesOLD/apiGuide")); //<-- guide
 
 //Auth - User Session
-app.use("/", require("./src/api/auth/signup")); //<-- signup
-app.use("/", require("./src/api/auth/login")); //<-- login
-app.use("/", require("./src/api/auth/logout")); //<-- logout
+app.use("/", require("./src/routes/auth/signup")); //<-- signup
+app.use("/", require("./src/routes/auth/login")); //<-- login
+app.use("/", require("./src/routes/auth/logout")); //<-- logout
 
 // Protege las rutas que requieren autenticación con el middleware deberan estar por debajo de esta linea
 app.use(cookieParser());
 //app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas protegidas
 
 //API
-app.use("/", require("./src/api/users/user")); //<-- get user data in auth firestore
-app.use("/", require("./src/api/users/user-put")); //<-- to update used data
-app.use("/", require("./src/api/tabs/user_tabs_post")); //<-- Add New Tab
-app.use("/", require("./src/api/tabs/user_tabs_get")); //<-- get Tabs on DB
-app.use("/", require("./src/api/tabs/user_tabs_put")); //<-- update a Tabs on DB
-app.use("/", require("./src/api/tabs/user_tabs_delete")); //<-- delete a Tabs on DB
+app.use("/", require("./src/routes/users/user")); //<-- get user data in auth firestore
+app.use("/", require("./src/routes/users/user-put")); //<-- to update used data
+app.use("/", require("./src/routes/tabs/user_tabs_post")); //<-- Add New Tab
+app.use("/", require("./src/routes/tabs/user_tabs_get")); //<-- get Tabs on DB
+app.use("/", require("./src/routes/tabs/user_tabs_put")); //<-- update a Tabs on DB
+app.use("/", require("./src/routes/tabs/user_tabs_delete")); //<-- delete a Tabs on DB
 
 //404 Error
 app.use((req, res, next) => {

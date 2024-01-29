@@ -1,57 +1,75 @@
 const express = require("express");
 const router = express.Router();
 
-const Connection = require('../config/Connection.js');
+const Pool = require('../config/Connection.js');
 
 class Users {
   constructor() {}
 
-  createUser(name, email, password, dateCreated, callback) {
-    Connection.query('INSERT INTO user (name, email, password, created_at, role) VALUES (?, ?, ?, ?, 2)', [name, email, password, dateCreated], callback);
+  async createUser(name, email, password, dateCreated, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('INSERT INTO user (name, email, password, created_at, role) VALUES (?, ?, ?, ?, 2)', [name, email, password, dateCreated]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en createUser:", err);
+      callback(err, null);
+    }
   }
 
-  getUserById(id) {
-    return new Promise((resolve, reject) => {
-      Connection.query('SELECT * FROM user WHERE id = ?', [id], (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (results.length === 0) {
-            resolve(null);
-          } else {
-            resolve(results[0]);
-          }
-        }
-      });
-    });
+  async getUserById(id) {
+    try {
+      const [rows, fields] = await Pool.execute('SELECT * FROM user WHERE id = ?', [id]);
+      if (rows.length === 0) {
+        return null;
+      } else {
+        return rows[0];
+      }
+    } catch (err) {
+      throw err;
+    }
   }
 
-  findUserByEmail(email) {
-    return new Promise((resolve, reject) => {
-      Connection.query('SELECT * FROM user WHERE email = ?', [email], (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          if (results.length === 0) {
-            resolve(null); // Usuario no encontrado
-          } else {
-            resolve(results[0]); // Devuelve el primer usuario encontrado
-          }
-        }
-      });
-    });
+  async findUserByEmail(email) {
+    try {
+      const [rows, fields] = await Pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+      if (rows.length === 0) {
+        return null;
+      } else {
+        return rows[0];
+      }
+    } catch (err) {
+      throw err;
+    }
   }
 
-  updateUserName(id, name, callback) {
-    Connection.query('UPDATE user SET name = ? WHERE id = ?', [name, id], callback);
+  async updateUserName(id, name, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET name = ? WHERE id = ?', [name, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserName:", err);
+      callback(err, null);
+    }
   }
 
-  updateUserEmail(id, name, callback) {
-    Connection.query('UPDATE user SET email = ? WHERE id = ?', [name, id], callback);
+  async updateUserEmail(id, name, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET email = ? WHERE id = ?', [name, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserEmail:", err);
+      callback(err, null);
+    }
   }
 
-  deleteUser(userId, callback) {
-    Connection.query('DELETE FROM user WHERE id = ?', [userId], callback);
+  async deleteUser(userId, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('DELETE FROM user WHERE id = ?', [userId]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en deleteUser:", err);
+      callback(err, null);
+    }
   }
 }
 

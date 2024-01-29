@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 //*Models
 const User = require("../../models/Users.js");
@@ -24,7 +22,7 @@ router.get("/user-data", async (req, res) => {
 
     res.status(200).json({ email, displayName, photoURL });
   } catch (error) {
-    console.error(error);
+    console.error("Error en /user-data:", error);
     res.status(400).json({
       message: "Ha ocurrido un error al obtener los datos del usuario.",
     });
