@@ -32,7 +32,7 @@ app.use("/", require("./src/routes/auth/logout")); //<-- logout
 
 // Protege las rutas que requieren autenticación con el middleware deberan estar por debajo de esta linea
 app.use(cookieParser());
-//app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas protegidas
+app.use(authMiddleware); //<-- aquí se agrega el middleware antes de las rutas protegidas
 
 //API
 app.use("/", require("./src/routes/users/user")); //<-- get user data in auth firestore
