@@ -22,9 +22,6 @@ app.use(cors({ origin: corsUrl.production, credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-/* Routes */
-app.use("/", require("./src/routesOLD/apiGuide")); //<-- guide
-
 //Auth - User Session
 app.use("/", require("./src/routes/auth/signup")); //<-- signup
 app.use("/", require("./src/routes/auth/login")); //<-- login

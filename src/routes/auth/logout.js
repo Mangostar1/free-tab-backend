@@ -14,7 +14,7 @@ router.get("/api/logout", (req, res) => {
   
     userSession.setUserID(clear);
 
-    console.log("Logout", userSession.getUserID());
+    console.log("Logout ", userSession.getUserID());
 
     res.status(200).json({ success: "Sesión cerrada" });
   } catch (error) {

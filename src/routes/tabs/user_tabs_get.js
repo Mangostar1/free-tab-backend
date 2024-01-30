@@ -19,6 +19,7 @@ router.get("/api/user-tab", async (req, res) => {
     }
 
     res.status(200).json(tabData);
+    console.log('Se obtiene tablatura: /api/user-tab');
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).json({ error: "Internal server error" });

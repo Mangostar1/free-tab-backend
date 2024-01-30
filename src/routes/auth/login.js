@@ -59,6 +59,7 @@ router.post("/api/login", async (req, res) => {
     res
       .status(200)
       .json({ token, message: "Usuario ha ingresado exitosamente." });
+    console.log("Usuario ha ingresado exitosamente.");
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Ha ocurrido un error al iniciar sesión." });

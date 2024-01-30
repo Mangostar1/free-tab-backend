@@ -24,6 +24,7 @@ router.post("/api/signup", async (req, res) => {
     
     if (User.findUserByEmail(email)) {
       res.json({message: 'El email ya se encuentra en uso'});
+      console.log('El email ya se encuentra en uso');
     }
 
     const contraseñaEncriptada = await bcrypt.hash(password, salt);
@@ -32,10 +33,11 @@ router.post("/api/signup", async (req, res) => {
 
     User.createUser(userName, email, contraseñaEncriptada, dateCreated, (err, result) => {
       if (err) {
-        console.error('Error al crear usuario:', err);
+        console.log('Error al crear usuario:', err);
         res.status(500).json({ message: 'Error en el servidor' });
       } else {
         res.json({ message: 'Usuario creado con éxito' });
+        console.log('Usuario creado con éxito');
       }
     });
   } catch (err) {

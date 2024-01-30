@@ -21,6 +21,7 @@ router.get("/user-data", async (req, res) => {
     const photoURL = userData.img_profile;
 
     res.status(200).json({ email, displayName, photoURL });
+    console.log('Se obtienen los datos del usuario: /user-data');
   } catch (error) {
     console.error("Error en /user-data:", error);
     res.status(400).json({

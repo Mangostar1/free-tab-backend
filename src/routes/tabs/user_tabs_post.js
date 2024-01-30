@@ -25,12 +25,12 @@ router.post("/api/new-tab", async (req, res) => {
     /* middleware */
     //code
     if (bassArticle) {
-      Tabs.incertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
+      Tabs.insertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
       bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
     }
 
     if (guitarArticle) {
-      Tabs.incertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
+      Tabs.insertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
       guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
     }
 
@@ -50,6 +50,7 @@ router.post("/api/new-tab", async (req, res) => {
           res
             .status(201)
             .json({ message: "Usuario creado con éxito la tablatura" });
+          console.log("Usuario creado con éxito la tablatura");
         }
       }
     );
