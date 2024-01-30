@@ -1,21 +1,20 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
 
 //*Models
-import Users from "../../models/Users.js";
+const User = require("../../models/Users.js");
 
 //*Util
-import { getUserID } from "../../session/sessionService.js";
+const userSession = require("../../session/sessionService.js");
 
 // Ruta protegida para obtener los datos del usuario
 router.get("/user-data", async (req, res) => {
   try {
-    const userId = getUserID();
+    const userId = userSession.getUserID();
 
-    const userData = await Users.getUserById(userId);
+    const userData = await User.getUserById(userId);
 
     const displayName = userData.name;
     const email = userData.email;
@@ -31,4 +30,4 @@ router.get("/user-data", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

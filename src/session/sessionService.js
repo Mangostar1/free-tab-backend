@@ -1,11 +1,16 @@
-import express from "express";
+const express = require("express");
 
 let userID = null;
 
-export function setUserID(newUserID) {
+function setUserID(newUserID) {
   userID = newUserID;
 }
 
-export function getUserID() {
+function getUserID() {
   return userID;
 }
+
+module.exports = {
+  setUserID,
+  getUserID,
+};

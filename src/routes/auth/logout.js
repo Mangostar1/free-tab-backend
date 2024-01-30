@@ -1,20 +1,20 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
 
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
 
 //*Util
-import { setUserID, getUserID } from "../../session/sessionService.js";
+const userSession = require('../../session/sessionService.js');
 
 router.get("/api/logout", (req, res) => {
 
   try {
     const clear = null;
   
-    setUserID(clear);
+    userSession.setUserID(clear);
 
-    console.log("Logout ", getUserID());
+    console.log("Logout ", userSession.getUserID());
 
     res.status(200).json({ success: "Sesión cerrada" });
   } catch (error) {
@@ -24,4 +24,4 @@ router.get("/api/logout", (req, res) => {
 
 });
 
-export default router;
+module.exports = router;
