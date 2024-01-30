@@ -1,4 +1,5 @@
 import express from "express";
+const router = express.Router();
 
 import { Pool } from "../config/Connection.js";
 
@@ -72,4 +73,6 @@ class Users {
   }
 }
 
-export { Users };
+/* export { Users }; */
+
+export default new Users();

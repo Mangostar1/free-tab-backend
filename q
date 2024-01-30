@@ -1,0 +1,389 @@
+[33mcommit 97e16807861d654406c1f17d209258589a11e487[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Jan 30 16:32:13 2024 -0300
+
+    Se cambia el type a module para usar import export y js moderno
+
+[33mcommit af1076e2d90aab6a513753af2c9d88608a34e4cb[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Jan 30 11:54:10 2024 -0300
+
+    Se agregan log para identificar mejor los procesos en el log del servidor.
+    Se eliminan archivos innecesarios para el funcionamiento del servidor web API
+
+[33mcommit f3403920a43ded876f131491cc359d63ef264976[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jan 29 20:54:56 2024 -0300
+
+    Se configura el auth para proteger las rutas privadas del servidor
+
+[33mcommit 40a4b250c769679d68a8735d9454a3b9755d06f6[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jan 29 20:31:17 2024 -0300
+
+    Se modifica la forma en la que se hace la conexion con la base de datos
+    en el archivo Connection, se cambia el uso de connection.query a pool
+    para manejar mejor las peticiones y evitar errores de inactividad.
+    Se refactoriza el codigo para implementar el uso del pool en el resto
+    del servidor. Se renombra la carpeta api a routes ya que esta es la que
+    esta sirviendo las rutas en el servidor y se pone el nombre OLD a la
+    antigua carpeta routes.
+
+[33mcommit 7426a87ab629eaa5f0aa91e22a306e921cf717d9[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Jan 7 18:55:16 2024 -0300
+
+    Se actualizan las consultas sql tabs para corregir un error de sintaxis.
+    Se actualiza las consultas sql de users, ahora al crear un usuario este
+    se creara con una fecha de creacion y se anadira de forma automatica el
+    rol usuario. (cors en local)
+
+[33mcommit d4c3b9ce942bbeab7c5fd16b760e55dd77b9c504[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Jan 7 15:42:03 2024 -0300
+
+    Se corrige error de sintaxis en consulta sql
+
+[33mcommit c18657d97ec9c1d45370649cb425ff6e03432214[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Jan 7 15:30:33 2024 -0300
+
+    Se cambia la url del cors a la url de produccion
+
+[33mcommit bc01c1ce4f4e72da738f62ce427a603747e4146c[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Dec 30 23:19:58 2023 -0300
+
+    Se modifica el codigo de la consulta para obtener tabs por usuario y por id
+
+[33mcommit a9c9fd43012896e94445c7a148c16126e685894b[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Dec 30 18:45:24 2023 -0300
+
+    Se agregan metodos a la clase Tabs para poder guardar las tabas de guitarra. Peticiones post ade tabs funcionando correctamente
+
+[33mcommit 715624f945192fe6c78708a40a17bc3ebfa48b32[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Dec 29 23:13:52 2023 -0300
+
+    Se avanza en la implementacion del orm y reemplazo del uso de firebase por consultas sql y funcionalidades propias
+
+[33mcommit cfa2dbd241bd72f5c8f836e6392edbd3b5caf97d[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Dec 9 19:46:10 2023 -0300
+
+    Se guardan avances.
+
+[33mcommit 7e878dc9d330f2da64ade171ad79812daa96a07c[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Oct 22 22:23:37 2023 -0300
+
+    Se actualizan las rutas para crear y traer las tablaturas(se cambia firebase por sql). Se crea el models Tabs para almacenar los metodos que ejecutaran las consultas
+
+[33mcommit 390e5352023862508ab5329b2759b6f8b56f35b6[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Oct 8 20:53:33 2023 -0300
+
+    Se mejora el log del logout
+
+[33mcommit 4a368ce25c286124a497ceeb97f04989193573d6[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Oct 8 20:18:46 2023 -0300
+
+    Se termina de migrar la logica del login y del loggout de firebase a sql y codigo propio. Se crea una variable de servidor.
+
+[33mcommit 3bd25c0c76e5b74b654c95e057d3b3ff07af1193[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Oct 7 22:39:50 2023 -0300
+
+    Se cambia cors local a cors de produccion
+
+[33mcommit 33dd0eb202a4f7ad68642371aa57d32ff629bf44[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Oct 7 22:38:25 2023 -0300
+
+    Se termina de trabajar en el login.js, y se agrega nuevo metodo a la clase User que permite buscar la informacion de un usuario con su email.
+
+[33mcommit a71cc334b7ae9a570904817780b31bd4fd854298[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Oct 7 20:04:27 2023 -0300
+
+    Se guardan avances en el desarrollo del login. Se quita manejador de error en caso de fallas al conectar
+
+[33mcommit 87f14349092f30b16e1a967d475b8a7f782cead6[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Sep 30 20:53:10 2023 -0300
+
+    Se elimina comentario de apoyo. Ruta "/api/signup" funcionando correctamente y encriptando correctamente las contraseñas de los usuarios
+
+[33mcommit e58d585f0255030a87d0b2049a46ffc00e547d9d[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Sep 30 20:46:56 2023 -0300
+
+    Se agrega async/await al encriptador para probar si se elimina el error de cors
+
+[33mcommit 57e328f4909ece14ed6b71fc3cad38d20269fc66[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Sep 30 20:36:21 2023 -0300
+
+    Se descomenta y vuelve a agregar el encriptador
+
+[33mcommit 53cfa6adaeff1a011f784655034e42400ceb5163[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Sep 30 20:29:20 2023 -0300
+
+    Se comenta encriptador para testear error de cors (no deberia estar relacionado)
+
+[33mcommit 232d00d7246d09155ad68aabf0fcc822fe1d2bbb[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Sep 30 20:21:54 2023 -0300
+
+    Se agrega "bcrypt" para encriptar la contraseña del usuario.
+
+[33mcommit 44b947ee4f80559a49e1754d298f1b602a9236e4[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Sep 30 19:14:58 2023 -0300
+
+    Se inician pruebas en la ruta "/api/signup", ruta encriptacion para password aun.
+
+[33mcommit d8a66e0bf547cbcf3110345bec1a100b3ef9795f[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Sep 29 13:42:16 2023 -0300
+
+    Se agrega mysql2 para migrar la base de datos de firebase a mysql y logica propia
+
+[33mcommit 0fb3f6e06508512bb3a76311e3b1c039acb1c029[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 15:52:45 2023 -0400
+
+    Se agrega log para visualizar errores en login
+
+[33mcommit a7e5ee1351f114311c5119c1f79e971d569531c0[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 15:46:56 2023 -0400
+
+    Se elimina log
+
+[33mcommit 43a70ef6f142596435c04e6f4b33b58c90d81945[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 14:58:39 2023 -0400
+
+    Se agrega log para debugear
+
+[33mcommit a4c2fe10e935359180c85782ba387753e4c4fa17[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 14:44:30 2023 -0400
+
+    se cambia la vercion de node
+
+[33mcommit 81f0599ab613c56771b273a959f49eeba7a7ffca[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 14:36:48 2023 -0400
+
+    Se cambia de color los logs de la consola
+
+[33mcommit fd86cf0d72345e3fa195bfca748064ca31ea254b[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 14:16:26 2023 -0400
+
+    Se actualiza url
+
+[33mcommit 1c477485785cd88bdbffd512c959355df094a4b0[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 14:11:59 2023 -0400
+
+    Se modifica url del cliente
+
+[33mcommit 521a4a12b0c415a40dcd2dc4a6aa37b4d45d4e35[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Aug 8 13:12:08 2023 -0400
+
+    Se modifica la url del cors. Se agrega comentario en el user_tabs_get.js
+
+[33mcommit d67dad62d9ceaf9281418f22b20dc611d6461a97[m
+Author: Omar Zavala <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jul 28 21:25:00 2023 -0400
+
+    Update README.md
+
+[33mcommit ce6d11e847f3a78c44df27ebb02128bf8d311eb9[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Jul 18 20:06:40 2023 -0400
+
+    Se cambia cors de local a produccion
+
+[33mcommit 57284b2dd0b5083fa8ac502c305e6250541db26e[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Thu Jul 13 20:50:10 2023 -0400
+
+    feat:
+    - Se implementa un trycatch en user_tabs_post.
+    - Se agrega un console.log y un res.send en el catch para informar al usuario el posible error e informar por la consola del servidor el error.
+    - Se implementa firestore en el user_tabs_get mas el codigo necesario para enviar por consola los datos almacenados en firestore. (falta implementar el retorno de estos datos al cliente)
+
+[33mcommit 37d0cee0804b2b1a3e0f6defec7cf9ea0d0c802a[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Tue Jul 11 19:22:34 2023 -0400
+
+    Se actualizan dependencias npm, se implementa una ruta delete en blanco para que el usuario pueda borrar su tablatura guardada. Se finalizan trabajos en la ruta user_tabs_post
+
+[33mcommit 10be586a9d178da3b6ede32015fd929b2d273122[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jul 7 19:10:59 2023 -0400
+
+    Se modifica la url de la ruta que hace put, ahora esta ruta espera un id para hacer el update
+
+[33mcommit 4b603cebfabe48eee8dd55207976c7aa556eff72[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jul 7 19:04:20 2023 -0400
+
+    Se renombran las rutas para las tabs de l usuario
+
+[33mcommit 84030922ddbc2f27e37e0cf1d600fcf52128f00e[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jul 7 18:54:25 2023 -0400
+
+    Refactorizar rutas para controlar las tabs del usuario
+    
+    - Agregar rutas para las pestañas del usuario, incluyendo una ruta GET en fase beta de desarrollo y rutas POST y PUT en desarrollo activo.
+    - Agregar URL para realizar solicitudes GET, POST y PUT.
+    - Añadir un objeto en el archivo de índice para gestionar de forma más eficiente las rutas utilizadas en el control de acceso a recursos compartidos (CORS).
+
+[33mcommit b75e8d0be94436df160d62e83817e78dbf88dcc2[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Wed Jul 5 21:39:52 2023 -0400
+
+    Se crea nueva ruta para actualizar los datos edl usuario a traves del metodo PUT. Ruta /user-data-update funcionando correctamente.
+
+[33mcommit 60b2a388cbe1d6e292e434a0c1512a876c930482[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jul 3 19:37:52 2023 -0400
+
+    Se modifican los mensajes enviados al usuario en caso de error. Ahora el auth esta funcionando correctamente y ya no envia el error 401 al intentar acceder a las rutas protegidas estando logeado.
+
+[33mcommit 5a3c02fe58cf61ba131c2eacf64688d7715d32f8[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jul 3 18:50:48 2023 -0400
+
+    se hacen cambios en el middleware de autorizacion.
+
+[33mcommit 48d1bf26c2991f43edb4110c358fad9f3b6f74d8[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jul 3 18:12:46 2023 -0400
+
+    se modifica la url del cors
+
+[33mcommit fc9a3757d1ccc0bc073ff2fe2bcb6e2e8482b947[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jul 3 17:08:11 2023 -0400
+
+    Se configura para que permita a la ruta deseada y cualquier subruta.
+
+[33mcommit d2db4464b942c66416de570935062c9160d809f4[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jul 3 16:52:56 2023 -0400
+
+    Se corrige url
+
+[33mcommit 54b02a03a3857d9b87384a9559d4ea4c277c25d6[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon Jul 3 16:40:28 2023 -0400
+
+    Se cambia la url del proyecto que consume este servidor para testear el envio de cookie del cliente al servidor. (se busca investigar si es el hosting de produccion quien bloquea el envio de cookies a este servidor)
+
+[33mcommit e23198a156c71f356c113d1d3cc7b5a6bd03080e[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Wed Jun 21 14:33:37 2023 -0400
+
+    Se cambia ruta del cors a la url de produccion
+
+[33mcommit c851fb5e37989edd2615b1571e41d6f45e74c720[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Wed Jun 21 14:28:48 2023 -0400
+
+    Se agrega nuevo console.log para debugear en produccion, se cambia el error 404 de 404.html a json con error al front-end
+
+[33mcommit 7d81bf5b759aff4b608eda415d1a2a4526b32565[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Jun 18 21:18:12 2023 -0400
+
+    se elimina funcion que verifica autenticacion del usuario ya que en el index se autentica si el usuario esta o no logeado para poder acceder a la ruta usuario
+
+[33mcommit 4d7ccc3fe36f3c345060dd2fe9783a4b17873ec1[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Jun 18 21:06:40 2023 -0400
+
+    Se agrega el authMiddleware en user.js para evitar error de aceso no autorisado en la solicitud de la informacion del usuario
+
+[33mcommit f23e57873cd16cf02cdc8d0d2f67da27cb10bd4b[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun Jun 18 20:37:19 2023 -0400
+
+    Se guardan cambios
+
+[33mcommit ce98ab8cfd812165276f75c9a58967a62bccfa06[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jun 16 21:19:11 2023 -0400
+
+    Se modifica una url
+
+[33mcommit 11e9081f746f2fe3466b592d590ede68680cb450[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jun 16 18:07:19 2023 -0400
+
+    Se modifica la URL del CORS a la URL de produccion
+
+[33mcommit 9bcf34ba9daa63c07f3d1af73f227b5fa20bea12[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri Jun 16 18:04:30 2023 -0400
+
+    Se agrega nueva dependencia para el manejo de las cookies. Se agrega ruta users para traer datos del usuario al endpoint. Se mueven archivos que trabajan con la session del usuario a una carpeta /auth. Se agrega la nueva dependencia al index para que todas las consultas a las rutas privadas pasen por este.
+
+[33mcommit 984928c224f0ecdd9fa372a66271cbd93c3c0978[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sat Jun 3 16:21:58 2023 -0400
+
+    Se actualiza dependencia npm de firebase y se comienzan trabajos en la ruta para agregar nuevas tablaturas en firestore.
+
+[33mcommit 5a6621824ad2d4c233ce00def9a6405fead71921[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Thu Jun 1 20:27:06 2023 -0400
+
+    Se agrega un middleware para controlar el acceso a las rutas protegidas, se renombra el middleware logger a timeLogger para que su nombre sea mas descriptivo.
+
+[33mcommit 3547f689602c509c78b9f9440d21588afb8f89e1[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon May 29 12:28:19 2023 -0400
+
+    Se modifica la url del CORS
+
+[33mcommit 98783f0dfe3c1c68338ecf4148bab5c28afd1cb9[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Mon May 29 11:54:15 2023 -0400
+
+    Se corrige error en direccion de rutas de los modulos.
+
+[33mcommit e83c6031a7de25dae8654b3ba386641d02430b3b[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Sun May 28 21:03:52 2023 -0400
+
+    Se cambia CORS de desarrollo a CORS de produccion.
+
+[33mcommit f2d6de5d45d975f1e115e872fc8db42e6eb7c286[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri May 26 16:03:26 2023 -0400
+
+    Se guarda los cambios en signup
+
+[33mcommit 24dee78141ed4d8b005cee7cbff6c464d40cadab[m
+Author: Omar <93488662+Mangostar1@users.noreply.github.com>
+Date:   Fri May 26 16:02:48 2023 -0400
+
+    Se crea la carpeta "src" para dar un mayor orden al proyecto.
+
+[33mcommit a9482182d73b87975c5916d4efd1f22534a9411f[m
+Author: Omar Zavala <influencia.x.94@gmail.com>
+Date:   Thu May 25 20:08:55 2023 -0400
+
+    Se elimina un import que no se usa en signup.
+    Se agrega un paso extra en el login, ahora si el usuario que quiere ingresar a la web, debera tener su email verficado de lo contrario no podra hacer ingreso a la web.

@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 
 
 //*Models
-import { Users } from "../../models/Users.js";
+import Users from "../../models/Users.js";
 
 //*Util
 import { setUserID } from "../../session/sessionService.js";

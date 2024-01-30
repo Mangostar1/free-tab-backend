@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 //*Models
-import { Users } from "../../models/Users.js";
+import Users from "../../models/Users.js";
 
 //*Util
 import { getUserID } from "../../session/sessionService.js";

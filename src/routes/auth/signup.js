@@ -6,7 +6,7 @@ dotenv.config();
 import bcrypt from "bcrypt";
 
 //*Models
-import { Users } from "../../models/Users.js";
+import Users from "../../models/Users.js";
 
 const saltRounds = process.env.SALT_ROUNDS;
 
