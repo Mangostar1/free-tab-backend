@@ -1,11 +1,17 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
+
+//*Models
+import { Tabs } from "../../models/Tabs.js";
+
+//*Util
+import { getUserID } from "../../session/sessionService.js";
 
 router.delete("/api/user-tab-delete", (req, res) => {
   res.send("Aca se veran las tabs creadas");
 });
 
-module.exports = router;
+export default router;

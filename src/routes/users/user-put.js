@@ -1,13 +1,14 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const dotenv = require("dotenv");
+
+import dotenv from "dotenv";
 dotenv.config();
 
 //*Models
-const User = require("../../models/Users.js");
+import { Users } from "../../models/Users.js";
 
 //*Util
-const userSession = require("../../session/sessionService.js");
+import { getUserID } from "../../session/sessionService.js";
 
 // Ruta protegida para cambiar los datos del usuario
 router.put("/user-data-update", async (req, res) => {
@@ -15,14 +16,14 @@ router.put("/user-data-update", async (req, res) => {
     const { userName, userImage } = req.body;
     
     if (userName) {
-      await User.updateUserName(userSession.getUserID(), userName, async(err, rows) => {
+      await Users.updateUserName(getUserID(), userName, async(err, rows) => {
         if (err) {
           console.error("Error actualizando el nombre:", err);
           res.json({err});
         } else {
-          const userId = userSession.getUserID();
+          const userId = getUserID();
 
-          await User.getUserById(userId, (err, user) => {
+          await Users.getUserById(userId, (err, user) => {
             if (err) {
               console.error("Error obteniendo los datos actualizados del usuario:", err);
               res.json({err});
@@ -44,4 +45,4 @@ router.put("/user-data-update", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

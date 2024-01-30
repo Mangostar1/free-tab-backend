@@ -1,18 +1,18 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
 //*Models
-const Tabs = require("../../models/Tabs.js");
+import { Tabs } from "../../models/Tabs.js";
 
 //*Util
-const userSession = require("../../session/sessionService.js");
+import { getUserID } from "../../session/sessionService.js";
 
 router.get("/api/user-tab", async (req, res) => {
   try {
-    let tabData = await Tabs.getAllUserTabs(userSession.getUserID());
+    let tabData = await Tabs.getAllUserTabs(getUserID());
 
     if (tabData === null) {
       return res.status(404).json({ error: "No tabs found for this user" });
@@ -26,4 +26,4 @@ router.get("/api/user-tab", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

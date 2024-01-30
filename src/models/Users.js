@@ -1,7 +1,6 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
 
-const Pool = require('../config/Connection.js');
+import { Pool } from "../config/Connection.js";
 
 class Users {
   constructor() {}
@@ -73,4 +72,4 @@ class Users {
   }
 }
 
-module.exports = new Users();
+export { Users };

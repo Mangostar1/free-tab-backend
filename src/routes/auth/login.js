@@ -1,16 +1,17 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const jwt = require("jsonwebtoken");
 
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
-const bcrypt = require('bcrypt');
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+
 
 //*Models
-const User = require('../../models/Users.js');
+import { Users } from "../../models/Users.js";
 
 //*Util
-const userSession = require('../../session/sessionService.js');
+import { setUserID } from "../../session/sessionService.js";
 
 router.post("/api/login", async (req, res) => {
   try {
@@ -24,7 +25,7 @@ router.post("/api/login", async (req, res) => {
 
     let user;
     try {
-      user = await User.findUserByEmail(email);
+      user = await Users.findUserByEmail(email);
     } catch (err) {
       console.error(err);
       return res.status(500).json({ message: "Error al buscar el usuario." });
@@ -37,7 +38,7 @@ router.post("/api/login", async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
     
     //Se establece la id del usuario de forma temporal.
-    userSession.setUserID(user.id);
+    setUserID(user.id);
 
     if (!passwordMatch) {
       return res.status(401).json({ message: "Contraseña incorrecta." });
@@ -66,4 +67,4 @@ router.post("/api/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

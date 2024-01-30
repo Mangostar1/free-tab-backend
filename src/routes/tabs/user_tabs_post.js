@@ -1,14 +1,14 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
 //*Models
-const Tabs = require("../../models/Tabs.js");
+import { Tabs } from "../../models/Tabs.js";
 
 //*Util
-const userSession = require("../../session/sessionService.js");
+import { getUserID } from "../../session/sessionService.js";
 
 router.post("/api/new-tab", async (req, res) => {
   try {
@@ -25,19 +25,19 @@ router.post("/api/new-tab", async (req, res) => {
     /* middleware */
     //code
     if (bassArticle) {
-      Tabs.insertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
-      bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
+      Tabs.insertBassTab(JSON.stringify(bassArticle), getUserID());
+      bassArticleId = await Tabs.getLastBassTabByUserId(getUserID());
     }
 
     if (guitarArticle) {
-      Tabs.insertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
-      guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
+      Tabs.insertGuitarTab(JSON.stringify(guitarArticle), getUserID());
+      guitarArticleId = await Tabs.getLastGuitarTabByUserId(getUserID());
     }
 
     Tabs.setTab(
       bandName,
       songName,
-      userSession.getUserID(),
+      getUserID(),
       bassArticleId.bass_tab_id,
       guitarArticleId,
       secondGuitarId,
@@ -60,4 +60,4 @@ router.post("/api/new-tab", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

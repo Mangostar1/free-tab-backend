@@ -1,12 +1,12 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
-const bcrypt = require('bcrypt');
+
+import bcrypt from "bcrypt";
 
 //*Models
-const User = require('../../models/Users.js');
+import { Users } from "../../models/Users.js";
 
 const saltRounds = process.env.SALT_ROUNDS;
 
@@ -22,7 +22,7 @@ router.post("/api/signup", async (req, res) => {
     }
 
     
-    if (User.findUserByEmail(email)) {
+    if (Users.findUserByEmail(email)) {
       res.json({message: 'El email ya se encuentra en uso'});
       console.log('El email ya se encuentra en uso');
     }
@@ -31,7 +31,7 @@ router.post("/api/signup", async (req, res) => {
 
     const dateCreated = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    User.createUser(userName, email, contraseñaEncriptada, dateCreated, (err, result) => {
+    Users.createUser(userName, email, contraseñaEncriptada, dateCreated, (err, result) => {
       if (err) {
         console.log('Error al crear usuario:', err);
         res.status(500).json({ message: 'Error en el servidor' });
@@ -46,5 +46,4 @@ router.post("/api/signup", async (req, res) => {
   }
 });
 
-
-module.exports = router;
+export default router;

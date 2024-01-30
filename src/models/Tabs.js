@@ -1,5 +1,6 @@
-const express = require("express");
-const Pool = require("../config/Connection.js");
+import express from "express";
+
+import { Pool } from "../config/Connection.js";
 
 class Tabs {
   constructor() {}
@@ -80,4 +81,4 @@ class Tabs {
   }
 }
 
-module.exports = new Tabs();
+export { Tabs };
