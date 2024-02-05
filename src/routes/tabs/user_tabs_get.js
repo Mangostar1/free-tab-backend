@@ -10,7 +10,7 @@ const Tabs = require("../../models/Tabs.js");
 //*Util
 const userSession = require("../../session/sessionService.js");
 
-router.get("/api/user-tab", async (req, res) => {
+router.get("/tab/user-tab", async (req, res) => {
   try {
     let tabData = await Tabs.getAllUserTabs(userSession.getUserID());
 

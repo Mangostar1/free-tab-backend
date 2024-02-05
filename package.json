@@ -1,5 +1,5 @@
 {
-  "name": "learn-backend-node-express",
+  "name": "free-tabs-backend",
   "version": "1.0.0",
   "description": "Servidor web de la pagina free-tabs. Este proyecto sirve la api, auth y base de datos.",
   "main": "index.js",

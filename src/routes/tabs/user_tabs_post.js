@@ -10,7 +10,7 @@ const Tabs = require("../../models/Tabs.js");
 //*Util
 const userSession = require("../../session/sessionService.js");
 
-router.post("/api/new-tab", async (req, res) => {
+router.post("/tab/new-tab", async (req, res) => {
   try {
     const { userName, bandName, songName, guitarArticle, bassArticle } = req.body;
 

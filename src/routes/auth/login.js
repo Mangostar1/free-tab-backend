@@ -12,7 +12,7 @@ const User = require('../../models/Users.js');
 //*Util
 const userSession = require('../../session/sessionService.js');
 
-router.post("/api/login", async (req, res) => {
+router.post("/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 

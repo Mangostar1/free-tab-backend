@@ -10,7 +10,7 @@ const User = require('../../models/Users.js');
 
 const saltRounds = process.env.SALT_ROUNDS;
 
-router.post("/api/signup", async (req, res) => {
+router.post("/auth/signup", async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(Number(saltRounds));
     const { email, password, userName } = req.body;

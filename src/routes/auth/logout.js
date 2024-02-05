@@ -7,7 +7,7 @@ dotenv.config();
 //*Util
 const userSession = require('../../session/sessionService.js');
 
-router.get("/api/logout", (req, res) => {
+router.get("/auth/logout", (req, res) => {
 
   try {
     const clear = null;
