@@ -34,6 +34,7 @@ class Tabs {
         "INSERT INTO tabs (band_name, song_name, user_id, bass_tab_id, guitar_tab_id_1, guitar_tab_id_2, last_modified) VALUES (?, ?, ?, ?, ?, ?, ?)",
         [bandName, songName, userId, bassTabId, guitarTabOneId, guitarTabTwoId, lastModified]
       );
+      return { success: true };
     } catch (error) {
       throw error;
     }

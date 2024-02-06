@@ -23,37 +23,31 @@ router.post("/tab/new-tab", async (req, res) => {
     let secondGuitarId = null;
 
     /* middleware */
-    //code
     if (bassArticle) {
-      Tabs.insertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
-      bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
+      await Tabs.insertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
     }
+    
+    bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
+
 
     if (guitarArticle) {
-      Tabs.insertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
-      guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
+      await Tabs.insertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
     }
 
-    Tabs.setTab(
+    guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
+
+    await Tabs.setTab(
       bandName,
       songName,
       userSession.getUserID(),
-      bassArticleId.bass_tab_id,
-      guitarArticleId,
+      bassArticleId ? bassArticleId.bass_tab_id : null,
+      guitarArticleId ? guitarArticleId.guitar_tab_id : null,
       secondGuitarId,
-      postDate,
-      (err, result) => {
-        if (err) {
-          console.error("Error al crear la tablatura:", err);
-          res.status(500).json({ message: "Error en el servidor" });
-        } else {
-          res
-            .status(201)
-            .json({ message: "Usuario creado con éxito la tablatura" });
-          console.log("Usuario creado con éxito la tablatura");
-        }
-      }
+      postDate
     );
+
+    res.status(201).json({ message: "Usuario creado con éxito la tablatura" });
+    
   } catch (e) {
     console.log("Error adding document: ", e);
     res.status(400).json({ message: e });
