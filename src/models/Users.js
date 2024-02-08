@@ -18,7 +18,7 @@ class Users {
 
   async getUserById(id) {
     try {
-      const [rows, fields] = await Pool.execute('SELECT * FROM user WHERE id = ?', [id]);
+      const [rows, fields] = await Pool.execute('SELECT id, name AS user_name, email, password, img_profile, role, created_at FROM user WHERE id = ?', [id]);
       if (rows.length === 0) {
         return null;
       } else {

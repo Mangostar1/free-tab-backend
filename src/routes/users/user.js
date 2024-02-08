@@ -16,7 +16,7 @@ router.get("/user-data", async (req, res) => {
 
     const userData = await User.getUserById(userId);
 
-    const displayName = userData.name;
+    const displayName = userData.user_name;
     const email = userData.email;
     const photoURL = userData.img_profile;
 

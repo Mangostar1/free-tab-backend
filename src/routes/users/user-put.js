@@ -16,31 +16,38 @@ router.put("/user-data-update", async (req, res) => {
     
     if (userName) {
       await User.updateUserName(userSession.getUserID(), userName, async(err, rows) => {
+
         if (err) {
           console.error("Error actualizando el nombre:", err);
-          res.json({err});
-        } else {
-          const userId = userSession.getUserID();
-
-          await User.getUserById(userId, (err, user) => {
-            if (err) {
-              console.error("Error obteniendo los datos actualizados del usuario:", err);
-              res.json({err});
-            } else {
-              console.log("Datos actualizados del usuario:", user);
-              res.json(user.name)
-            }
-          })
+          return res.status(500).json({ message: "Error actualizando el nombre:", err });
         }
+
+        const userId = userSession.getUserID();
+
+        if (rows.affectedRows === 1) {
+
+          const userData = await User.getUserById(userId);
+
+          const displayName = userData.user_name;
+
+          console.log("Datos actualizados del usuario:", userData.email);
+          return res.status(200).json({ user_name: displayName });
+
+        }
+
       })
+
     }
 
     if (userImage) {
       //code
     }
+
   } catch (error) {
+
     console.error("Error en /user-data-update:", error);
-    res.status(500).json({ message: "Error interno del servidor", error });
+    return res.status(500).json({ message: "Error interno del servidor", error });
+    
   }
 });
 

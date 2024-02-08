@@ -21,30 +21,28 @@ router.post("/auth/signup", async (req, res) => {
         .json({ message: "Se deben proporcionar ambos campos." });
     }
 
-    
-    if (User.findUserByEmail(email)) {
-      res.json({message: 'El email ya se encuentra en uso'});
-      console.log('El email ya se encuentra en uso');
-    }
-
     const contraseñaEncriptada = await bcrypt.hash(password, salt);
 
     const dateCreated = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    User.createUser(userName, email, contraseñaEncriptada, dateCreated, (err, result) => {
-      if (err) {
-        console.log('Error al crear usuario:', err);
-        res.status(500).json({ message: 'Error en el servidor' });
-      } else {
-        res.json({ message: 'Usuario creado con éxito' });
-        console.log('Usuario creado con éxito');
-      }
-    });
+    const existingUser = await User.findUserByEmail(email);
+    if (existingUser) {
+      return res.status(400).json({ message: 'El email ya se encuentra en uso' });
+    } else {
+      User.createUser(userName, email, contraseñaEncriptada, dateCreated, (err, result) => {
+        if (err) {
+          console.log('Error al crear usuario:', err);
+          return res.status(500).json({ message: 'Error en el servidor' });
+        } else {
+          return res.status(201).json({ message: 'Usuario creado con éxito' });
+        }
+      });
+    }
+    
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Error en el servidor' });
+    return res.status(500).json({ message: 'Error en el servidor' });
   }
 });
-
 
 module.exports = router;
