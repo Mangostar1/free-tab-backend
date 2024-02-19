@@ -6,12 +6,14 @@ dotenv.config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const loggerTime = require("./src/middleware/timeLogger");
+const ipConnectionLog = require("./src/middleware/ipConnectionLog");
 const authMiddleware = require("./src/middleware/authMiddleware");
 const colors = require("colors");
 
 const PORT = process.env.PORT || 3000;
 
 app.use(loggerTime);
+app.use(ipConnectionLog);
 
 const corsUrl = {
   local: "http://localhost:3000",
