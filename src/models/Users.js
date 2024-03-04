@@ -71,6 +71,46 @@ class Users {
       callback(err, null);
     }
   }
+
+  async updateUserFacebook(id, userFacebook, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET sm_facebook = ? WHERE id = ?', [userFacebook, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserName:", err);
+      callback(err, null);
+    }
+  }
+
+  async updateUserTwitter(id, userTwitter, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET sm_twitter = ? WHERE id = ?', [userTwitter, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserName:", err);
+      callback(err, null);
+    }
+  }
+
+  async updateUserInstagram(id, userInstagram, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET sm_instagram = ? WHERE id = ?', [userInstagram, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserName:", err);
+      callback(err, null);
+    }
+  }
+
+  async updateUserDescription(id, userDescription, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET user_description = ? WHERE id = ?', [userDescription, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserName:", err);
+      callback(err, null);
+    }
+  }
 }
 
 module.exports = new Users();
