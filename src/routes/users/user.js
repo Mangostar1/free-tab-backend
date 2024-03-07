@@ -19,8 +19,13 @@ router.get("/user-data", async (req, res) => {
     const displayName = userData.user_name;
     const email = userData.email;
     const photoURL = userData.img_profile;
+    const facebook = userData.sm_facebook;
+    const instagram = userData.sm_instagram;
+    const twitter = userData.sm_twitter;
+    const description = userData.user_description;
 
-    res.status(200).json({ email, displayName, photoURL });
+
+    res.status(200).json({ email, displayName, photoURL, facebook, instagram, twitter, description });
     console.log('Se obtienen los datos del usuario: /user-data');
   } catch (error) {
     console.error("Error en /user-data:", error);
