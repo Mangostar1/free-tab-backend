@@ -12,11 +12,11 @@ const userSession = require("../../session/sessionService.js");
 // Ruta protegida para cambiar los datos del usuario
 router.put("/user-data-update", async (req, res) => {
   try {
-    const { userName, userImage, userFacebook, userTwitter, userInstagram, userDescription } = req.body;//<-- destructuracion
+    const { userdata, userImage, userFacebook, userTwitter, userInstagram, userDescription } = req.body;//<-- destructuracion
     const updates = {};
     
-    if (userName) {
-      await User.updateUserName(userSession.getUserID(), userName, async(err, rows) => {//<-- Se realiza la consulta
+    if (userdata.userName) {
+      await User.updateUserName(userSession.getUserID(), userdata.userName, async(err, rows) => {//<-- Se realiza la consulta
 
         if (err) {
           console.error("Error actualizando el nombre:", err);
@@ -24,7 +24,7 @@ router.put("/user-data-update", async (req, res) => {
 
         if (rows.affectedRows === 1) {//<-- Si se afecto una fila, devuelve al cliente el nuevo nombre ingresado
 
-          updates.user_name = userName;
+          updates.user_name = userdata.userName;
 
         }
 
