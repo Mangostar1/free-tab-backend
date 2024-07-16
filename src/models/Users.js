@@ -18,7 +18,7 @@ class Users {
 
   async getUserById(id) {
     try {
-      const [rows, fields] = await Pool.execute('SELECT id, name AS user_name, email, password, img_profile, role, created_at, sm_facebook, sm_twitter, sm_instagram, user_description FROM user WHERE id = ?', [id]);
+      const [rows, fields] = await Pool.execute('SELECT user.id, user.name AS user_name, user.email, user.password, user.img_profile, roles.role_name AS role, user.created_at, user.sm_facebook, user.sm_twitter, user.sm_instagram, user.user_description FROM user LEFT JOIN roles ON(user.role = roles.id) WHERE user.id = ?', [id]);
       if (rows.length === 0) {
         return null;
       } else {
