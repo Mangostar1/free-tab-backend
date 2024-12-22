@@ -7,7 +7,7 @@ class Tabs {
   async getAllUserTabs(userId) {
     try {
       const results = await Pool.execute(
-        "SELECT tabs.id AS tabID, tabs.user_id AS userID, tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs LEFT JOIN bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
+        "SELECT tabs.id AS tabID, tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs LEFT JOIN bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
         [userId]
       );
       return results[0].length === 0 ? null : results[0];
