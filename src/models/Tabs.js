@@ -7,7 +7,7 @@ class Tabs {
   async getAllUserTabs(userId) {
     try {
       const results = await Pool.execute(
-        "SELECT tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs LEFT JOIN bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
+        "SELECT tabs.id AS tabID, tabs.user_id AS userID, tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs LEFT JOIN bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ?",
         [userId]
       );
       return results[0].length === 0 ? null : results[0];
@@ -19,7 +19,7 @@ class Tabs {
   async getUserTabById(userId, tabId) {
     try {
       const results = await Pool.execute(
-        "SELECT tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs LEFT JOIN bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ? AND tabs.id_tabs = ?",
+        "SELECT tabs.id AS tabID, tabs.user_id AS userID, tabs.band_name, tabs.song_name, bass_tab.bass_tab_data, guitar_tab.guitar_tab_data, tabs.last_modified FROM tabs LEFT JOIN bass_tab ON(tabs.bass_tab_id = bass_tab.bass_tab_id) LEFT JOIN guitar_tab ON(tabs.guitar_tab_id_1 = guitar_tab.guitar_tab_id) WHERE tabs.user_id = ? AND tabs.id_tabs = ?",
         [userId, tabId]
       );
       return results[0].length === 0 ? null : results[0][0];
@@ -75,6 +75,23 @@ class Tabs {
         [userId]
       );
       return results[0].length === 0 ? null : results[0][0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteTabById(tabId, userId) {
+    try {
+      
+      // Delete from bass_tab
+      await Pool.execute("DELETE FROM bass_tab WHERE bass_tab_id IN (SELECT bass_tab_id FROM tabs WHERE id = ?)", [tabId]);
+      
+      // Delete from guitar_tab
+      await Pool.execute("DELETE FROM guitar_tab WHERE guitar_tab_id IN (SELECT guitar_tab_id_1 FROM tabs WHERE id = ?)", [tabId]);
+      
+      // Delete from tabs
+      await Pool.execute("DELETE FROM tabs WHERE id = ? AND user_id = ?", [tabId, userId]);
+      
     } catch (error) {
       throw error;
     }
