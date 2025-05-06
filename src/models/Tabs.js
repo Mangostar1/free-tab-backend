@@ -96,6 +96,14 @@ class Tabs {
       throw error;
     }
   }
+
+  async countTabsByUser(userId) {
+    const [rows] = await Pool.execute(
+      "SELECT COUNT(*) AS count FROM tabs WHERE user_id = ?",
+      [userId]
+    );
+    return rows[0].count;
+  }
 }
 
 module.exports = new Tabs();

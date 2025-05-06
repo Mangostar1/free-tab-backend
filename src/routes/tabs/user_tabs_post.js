@@ -22,31 +22,42 @@ router.post("/tab/new-tab", async (req, res) => {
     let guitarArticleId = null;
     let secondGuitarId = null;
 
-    /* middleware */
-    if (bassArticle) {
-      await Tabs.insertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
+    const MAX_TABS_PER_USER = 5;
+
+    const tabsPerUser = await Tabs.countTabsByUser(userSession.getUserID());
+
+    if (tabsPerUser >= MAX_TABS_PER_USER) {
+      
+      /* middleware */
+      if (bassArticle) {
+        await Tabs.insertBassTab(JSON.stringify(bassArticle), userSession.getUserID());
+      }
+      
+      bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
+  
+  
+      if (guitarArticle) {
+        await Tabs.insertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
+      }
+  
+      guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
+  
+      await Tabs.setTab(
+        bandName,
+        songName,
+        userSession.getUserID(),
+        bassArticleId ? bassArticleId.bass_tab_id : null,
+        guitarArticleId ? guitarArticleId.guitar_tab_id : null,
+        secondGuitarId,
+        postDate
+      );
+  
+      res.status(201).json({ message: "Usuario creado con éxito la tablatura" });
+
+    } else {
+      res.status(400).json({ message: `Has alcanzado el máximo de ${MAX_TABS_PER_USER} notas.` })
     }
-    
-    bassArticleId = await Tabs.getLastBassTabByUserId(userSession.getUserID());
 
-
-    if (guitarArticle) {
-      await Tabs.insertGuitarTab(JSON.stringify(guitarArticle), userSession.getUserID());
-    }
-
-    guitarArticleId = await Tabs.getLastGuitarTabByUserId(userSession.getUserID());
-
-    await Tabs.setTab(
-      bandName,
-      songName,
-      userSession.getUserID(),
-      bassArticleId ? bassArticleId.bass_tab_id : null,
-      guitarArticleId ? guitarArticleId.guitar_tab_id : null,
-      secondGuitarId,
-      postDate
-    );
-
-    res.status(201).json({ message: "Usuario creado con éxito la tablatura" });
     
   } catch (e) {
     console.log("Error adding document: ", e);

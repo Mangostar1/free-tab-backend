@@ -11,12 +11,16 @@ const userSession = require("../../session/sessionService.js");
 const Tabs = require("../../models/Tabs.js");
 
 router.delete("/tab/user-tab-delete", (req, res) => {
+  try {
+    const {tabID} = req.body;
 
-  const {tabID} = req.body;
+    Tabs.deleteTabById(tabID, userSession.getUserID());
 
-  Tabs.deleteTabById(tabID, userSession.getUserID());
-
-  return res.status(201).json({ message: 'Tab eliminada con exito' });
+    return res.status(201).json({ message: 'Tab eliminada con exito' });
+  } catch (error) {
+    console.log("Error deleting document: ", error);
+    res.status(400).json({ message: error });
+  }
 });
 
 module.exports = router;
