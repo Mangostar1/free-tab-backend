@@ -97,7 +97,19 @@ router.put("/user-data-update", async (req, res) => {
     }
 
     if (userImage) {
-      //code
+      await User.updateUserImgProfile(userSession.getUserID(), userImage, async(err, rows) => {//<-- Se realiza la consulta
+
+        if (err) {
+          console.error("Error actualizando la imagen del usuario:", err);
+        }
+
+        if (rows.affectedRows === 1) {//<-- Si se afecto una fila, devuelve al cliente el nuevo nombre ingresado
+
+          updates.user_image = userImage;
+
+        }
+
+      })
     }
 
     return res.status(200).json(updates);//<-- Respuesta al cliente

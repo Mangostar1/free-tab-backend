@@ -8,7 +8,7 @@ class Users {
 
   async createUser(name, email, password, dateCreated, callback) {
     try {
-      const [rows, fields] = await Pool.execute('INSERT INTO user (name, email, password, created_at, role) VALUES (?, ?, ?, ?, 2)', [name, email, password, dateCreated]);
+      const [rows, fields] = await Pool.execute('INSERT INTO user (name, email, password, created_at, role, img_profile) VALUES (?, ?, ?, ?, 2, "default.png")', [name, email, password, dateCreated]);
       callback(null, rows);
     } catch (err) {
       console.error("Error en createUser:", err);
@@ -105,6 +105,16 @@ class Users {
   async updateUserDescription(id, userDescription, callback) {
     try {
       const [rows, fields] = await Pool.execute('UPDATE user SET user_description = ? WHERE id = ?', [userDescription, id]);
+      callback(null, rows);
+    } catch (err) {
+      console.error("Error en updateUserName:", err);
+      callback(err, null);
+    }
+  }
+
+  async updateUserImgProfile(id, userImg, callback) {
+    try {
+      const [rows, fields] = await Pool.execute('UPDATE user SET img_profile = ? WHERE id = ?', [userImg, id]);
       callback(null, rows);
     } catch (err) {
       console.error("Error en updateUserName:", err);
