@@ -20,7 +20,7 @@ const corsUrl = {
   production: "https://free-tabs.netlify.app",
 };
 
-app.use(cors({ origin: corsUrl.local, credentials: true }));
+app.use(cors({ origin: corsUrl.production, credentials: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
